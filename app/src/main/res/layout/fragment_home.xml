@@ -268,16 +268,16 @@
                         android:layout_marginStart="15dp"
                         android:text="LILAC"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="17sp" />
 
                     <TextView
                         android:id="@+id/home_today_release_album_01_text_02_iv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="2dp"
                         android:layout_marginStart="15dp"
                         android:text="아이유 (IU)"
-                        android:textSize="15sp" />
+                        android:textSize="13sp" />
 
                 </LinearLayout>
 
@@ -328,16 +328,16 @@
                         android:layout_marginStart="15dp"
                         android:text="LILAC"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="17sp" />
 
                     <TextView
                         android:id="@+id/home_today_release_album_02_text_02_iv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="2dp"
                         android:layout_marginStart="15dp"
                         android:text="아이유 (IU)"
-                        android:textSize="15sp" />
+                        android:textSize="13sp" />
 
                 </LinearLayout>
 
@@ -388,16 +388,16 @@
                         android:layout_marginStart="15dp"
                         android:text="LILAC"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="17sp" />
 
                     <TextView
                         android:id="@+id/home_today_release_album_03_text_02_iv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="2dp"
                         android:layout_marginStart="15dp"
                         android:text="아이유 (IU)"
-                        android:textSize="15sp" />
+                        android:textSize="13sp" />
 
                 </LinearLayout>
 
@@ -448,16 +448,16 @@
                         android:layout_marginStart="15dp"
                         android:text="LILAC"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="17sp" />
 
                     <TextView
                         android:id="@+id/home_today_release_album_04_text_02_iv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="2dp"
                         android:layout_marginStart="15dp"
                         android:text="아이유 (IU)"
-                        android:textSize="15sp" />
+                        android:textSize="13sp" />
 
                 </LinearLayout>
 
@@ -508,16 +508,16 @@
                         android:layout_marginStart="15dp"
                         android:text="LILAC"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="17sp" />
 
                     <TextView
                         android:id="@+id/home_today_release_album_05_text_02_iv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="2dp"
                         android:layout_marginStart="15dp"
                         android:text="아이유 (IU)"
-                        android:textSize="15sp" />
+                        android:textSize="13sp" />
 
                 </LinearLayout>
 
@@ -598,16 +598,16 @@
                         android:layout_marginStart="15dp"
                         android:text="제목"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="17sp" />
 
                     <TextView
                         android:id="@+id/home_podcast_album_01_text_02_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="2dp"
                         android:layout_marginStart="15dp"
                         android:text="가수"
-                        android:textSize="15sp" />
+                        android:textSize="13sp" />
 
                 </LinearLayout>
 
@@ -647,16 +647,16 @@
                         android:layout_marginStart="15dp"
                         android:text="제목"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="17sp" />
 
                     <TextView
                         android:id="@+id/home_podcast_album_02_text_02_iv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="2dp"
                         android:layout_marginStart="15dp"
                         android:text="가수"
-                        android:textSize="15sp" />
+                        android:textSize="13sp" />
 
                 </LinearLayout>
 
@@ -697,16 +697,16 @@
                         android:layout_marginStart="15dp"
                         android:text="제목"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="17sp" />
 
                     <TextView
                         android:id="@+id/home_podcast_album_03_text_02_iv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="2dp"
                         android:layout_marginStart="15dp"
                         android:text="가수"
-                        android:textSize="15sp" />
+                        android:textSize="13sp" />
 
                 </LinearLayout>
 
@@ -746,16 +746,16 @@
                         android:layout_marginStart="15dp"
                         android:text="제목"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="17sp" />
 
                     <TextView
                         android:id="@+id/home_podcast_album_04_text_02_iv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="2dp"
                         android:layout_marginStart="15dp"
                         android:text="가수"
-                        android:textSize="15sp" />
+                        android:textSize="13sp" />
 
                 </LinearLayout>
 
@@ -794,16 +794,16 @@
                         android:layout_marginStart="15dp"
                         android:text="제목"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="17sp" />
 
                     <TextView
                         android:id="@+id/home_podcast_album_05_text_02_iv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="2dp"
                         android:layout_marginStart="15dp"
                         android:text="가수"
-                        android:textSize="15sp" />
+                        android:textSize="13sp" />
 
                 </LinearLayout>
 
@@ -862,16 +862,16 @@
                         android:layout_marginStart="15dp"
                         android:text="제목"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="17sp" />
 
                     <TextView
                         android:id="@+id/home_video_album_01_text_02_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="2dp"
                         android:layout_marginStart="15dp"
                         android:text="가수"
-                        android:textSize="15sp" />
+                        android:textSize="13sp" />
 
                 </LinearLayout>
 
@@ -896,16 +896,16 @@
                         android:layout_marginStart="15dp"
                         android:text="제목"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="17sp" />
 
                     <TextView
                         android:id="@+id/home_video_album_02_text_02_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="2dp"
                         android:layout_marginStart="15dp"
                         android:text="가수"
-                        android:textSize="15sp" />
+                        android:textSize="13sp" />
 
                 </LinearLayout>
 
@@ -930,16 +930,16 @@
                         android:layout_marginStart="15dp"
                         android:text="제목"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="17sp" />
 
                     <TextView
                         android:id="@+id/home_video_album_03_text_02_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="2dp"
                         android:layout_marginStart="15dp"
                         android:text="가수"
-                        android:textSize="15sp" />
+                        android:textSize="13sp" />
 
                 </LinearLayout>
 
