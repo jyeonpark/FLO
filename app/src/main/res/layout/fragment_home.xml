@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollbars="none">
+    android:scrollbars="none"
+    android:overScrollMode="never">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -27,7 +28,7 @@
             android:layout_height="30dp"
             android:src="@drawable/btn_main_setting"
             android:scaleType="centerCrop"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
             android:layout_marginEnd="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
@@ -38,7 +39,7 @@
             android:layout_height="30dp"
             android:src="@drawable/btn_main_ticket"
             android:scaleType="centerCrop"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
             android:layout_marginEnd="20dp"
             app:layout_constraintEnd_toStartOf="@id/home_btn_setting_iv"
             app:layout_constraintTop_toTopOf="parent"/>
@@ -49,7 +50,7 @@
             android:layout_height="30dp"
             android:src="@drawable/btn_nugu"
             android:scaleType="centerCrop"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
             android:layout_marginEnd="20dp"
             app:layout_constraintEnd_toStartOf="@id/home_btn_ticket_iv"
             app:layout_constraintTop_toTopOf="parent"/>
@@ -212,7 +213,8 @@
             app:layout_constraintTop_toBottomOf="@id/home_today_release_tv"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:scrollbars="none">
+            android:scrollbars="none"
+            android:overScrollMode="never">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -553,7 +555,8 @@
             app:layout_constraintTop_toBottomOf="@id/home_podcast_txt_tv"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:scrollbars="none">
+            android:scrollbars="none"
+            android:overScrollMode="never">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -564,10 +567,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-
-                    <FrameLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -590,14 +589,6 @@
 
                         </LinearLayout>
 
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_margin="10dp"
-                            android:src="@drawable/widget_black_play"
-                            android:layout_gravity="bottom|right" />
-
-                    </FrameLayout>
 
                     <TextView
                         android:id="@+id/home_podcast_album_01_text_tv"
@@ -625,9 +616,6 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <FrameLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -650,14 +638,6 @@
 
                         </LinearLayout>
 
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_margin="10dp"
-                            android:src="@drawable/widget_black_play"
-                            android:layout_gravity="bottom|right" />
-
-                    </FrameLayout>
 
                     <TextView
                         android:id="@+id/home_podcast_album_02_text_iv"
@@ -685,9 +665,6 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <FrameLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -710,14 +687,7 @@
 
                         </LinearLayout>
 
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_margin="10dp"
-                            android:src="@drawable/widget_black_play"
-                            android:layout_gravity="bottom|right" />
 
-                    </FrameLayout>
 
                     <TextView
                         android:id="@+id/home_podcast_album_03_text_01_tv"
@@ -745,9 +715,6 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <FrameLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -770,14 +737,6 @@
 
                         </LinearLayout>
 
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_margin="10dp"
-                            android:src="@drawable/widget_black_play"
-                            android:layout_gravity="bottom|right" />
-
-                    </FrameLayout>
 
                     <TextView
                         android:id="@+id/home_podcast_album_04_text_01_tv"
@@ -805,9 +764,6 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <FrameLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -829,15 +785,6 @@
                             </androidx.cardview.widget.CardView>
 
                         </LinearLayout>
-
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_margin="10dp"
-                            android:src="@drawable/widget_black_play"
-                            android:layout_gravity="bottom|right" />
-
-                    </FrameLayout>
 
                     <TextView
                         android:id="@+id/home_podcast_album_05_text_01_tv"
@@ -886,7 +833,8 @@
             app:layout_constraintTop_toBottomOf="@id/home_video_txt_tv"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:scrollbars="none">
+            android:scrollbars="none"
+            android:overScrollMode="never">
 
             <LinearLayout
                 android:layout_width="wrap_content"

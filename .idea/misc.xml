@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/drawable/flo_icon_background.xml" value="0.1" />
         <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/drawable/look_chart_background.xml" value="0.12335526315789473" />
         <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/drawable/look_icon_background_01.xml" value="0.11348684210526316" />
         <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/drawable/look_menu_background_01.xml" value="0.11348684210526316" />
@@ -11,10 +12,12 @@
         <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/drawable/main_btm_home_selector.xml" value="0.11348684210526316" />
         <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/drawable/round_corner_01.xml" value="0.16447368421052633" />
         <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/layout/activity_main.xml" value="0.22" />
-        <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/layout/fragment_home.xml" value="0.13838695460555311" />
+        <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/layout/activity_song.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/layout/fragment_home.xml" value="0.13333333333333333" />
         <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/layout/fragment_locker.xml" value="0.10328947368421053" />
         <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/layout/fragment_look.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/menu/bottom_nav_menu.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/mipmap-anydpi-v26/flo_icon.xml" value="0.12314814814814815" />
       </map>
     </option>
   </component>
