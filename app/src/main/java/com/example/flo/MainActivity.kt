@@ -14,9 +14,17 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val song = Song(binding.mainMiniplayerTitleTv.text.toString(), binding.mainMiniplayerSingerTv.text.toString())
+
         binding.mainPlayerLayout.setOnClickListener {
-            startActivity(Intent(this, SongActivity::class.java))
+            //startActivity(Intent(this, SongActivity::class.java))
+
+            val intent = Intent(this, SongActivity::class.java)
+            intent.putExtra("title", song.title)
+            intent.putExtra("singer", song.singer)
+            startActivity(intent)
         }
+
 
         initNavigation()
 

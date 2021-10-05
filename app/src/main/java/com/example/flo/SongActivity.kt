@@ -14,19 +14,38 @@ class SongActivity : AppCompatActivity() {
         binding = ActivitySongBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.songDownIb.setOnClickListener {
+        if (intent.hasExtra("title") && intent.hasExtra("singer")) {
+            binding.songTitleTv.text = intent.getStringExtra("title")
+            binding.songSingerTv.text = intent.getStringExtra("singer")
+        }
+
+        binding.songDownIb.setOnClickListener { // 화면 내리기
             finish()
         }
 
-        binding.songMiniplayerIv.setOnClickListener {
+        binding.songMiniplayerIv.setOnClickListener { // 일시정지 -> 재생
             setPlayerstatus(false)
         }
 
-        binding.songPauseIv.setOnClickListener {
+        binding.songPauseIv.setOnClickListener { // 재생 -> 일시정지
             setPlayerstatus(true)
         }
 
+        binding.songRepeatOffIv.setOnClickListener { // 반복재생 켜기
+            setRepeatstatus(false)
+        }
 
+        binding.songRepeatOnIv.setOnClickListener { // 반복재생 끄기
+            setRepeatstatus(true)
+        }
+
+        binding.songRandomOffIv.setOnClickListener { // 랜덤재생 켜기
+            setRandomstatus(false)
+        }
+
+        binding.songRandomOnIv.setOnClickListener { // 랜덤재생 끄기
+            setRandomstatus(true)
+        }
     }
 
     fun setPlayerstatus(isPlaying : Boolean){
@@ -40,4 +59,25 @@ class SongActivity : AppCompatActivity() {
         }
     }
 
+    fun setRandomstatus(isRandom : Boolean) {
+        if(isRandom){
+            binding.songRandomOffIv.visibility = View.VISIBLE
+            binding.songRandomOnIv.visibility = View.GONE
+        }
+        else{
+            binding.songRandomOffIv.visibility = View.GONE
+            binding.songRandomOnIv.visibility = View.VISIBLE
+        }
+    }
+
+    fun setRepeatstatus(isRepeating : Boolean){
+        if(isRepeating){
+            binding.songRepeatOffIv.visibility = View.VISIBLE
+            binding.songRepeatOnIv.visibility = View.GONE
+        }
+        else{
+            binding.songRepeatOffIv.visibility = View.GONE
+            binding.songRepeatOnIv.visibility = View.VISIBLE
+        }
+    }
 }
