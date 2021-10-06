@@ -1,18 +1,16 @@
 package com.example.flo
 
 import android.os.Bundle
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.flo.databinding.ActivitySongBinding
 import android.R
-
-import android.view.ViewGroup
-
-
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.Context
+import android.content.DialogInterface
+import android.view.*
 
 
 class SongActivity : AppCompatActivity() {
@@ -70,11 +68,11 @@ class SongActivity : AppCompatActivity() {
         }
 
         binding.songUnlikeOff.setOnClickListener { // 싫어요 누르기
-            setUnlikestatus(false)
+            setUnlikestatus(true)
         }
 
         binding.songUnlikeOn.setOnClickListener { // 싫어요 끄기
-            setUnlikestatus(true)
+            setUnlikestatus(false)
         }
 
     }
@@ -94,12 +92,12 @@ class SongActivity : AppCompatActivity() {
         if(isRandom){
             binding.songRandomOffIv.visibility = View.VISIBLE
             binding.songRandomOnIv.visibility = View.GONE
-            Toast.makeText(this, "재생목록을 랜덤으로 재생합니다.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "재생목록을 순서대로 재생합니다.", Toast.LENGTH_SHORT).show()
         }
         else{
             binding.songRandomOffIv.visibility = View.GONE
             binding.songRandomOnIv.visibility = View.VISIBLE
-            Toast.makeText(this, "재생목록을 순서대로 재생합니다.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "재생목록을 랜덤으로 재생합니다.", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -134,14 +132,25 @@ class SongActivity : AppCompatActivity() {
         }
     }
 
-    fun setUnlikestatus(like : Boolean){
-        if(like){
-            binding.songUnlikeOff.visibility = View.VISIBLE
-            binding.songUnlikeOn.visibility = View.GONE
+    fun setUnlikestatus(unlike : Boolean){
+        if(unlike) {
+            AlertDialog.Builder(this)
+                .setMessage("이제부터 추천에서 제외되며 재생하지 않습니다.")
+                .setPositiveButton("확인", object : DialogInterface.OnClickListener {
+                    override fun onClick(dialog: DialogInterface, which: Int) {
+                        binding.songUnlikeOff.visibility = View.GONE
+                        binding.songUnlikeOn.visibility = View.VISIBLE
+                    }
+                })
+                .setNegativeButton("취소", object : DialogInterface.OnClickListener {
+                    override fun onClick(dialog: DialogInterface, which: Int) {}
+                })
+                .create()
+                .show()
         }
         else{
-            binding.songUnlikeOff.visibility = View.GONE
-            binding.songUnlikeOn.visibility = View.VISIBLE
+            binding.songUnlikeOff.visibility = View.VISIBLE
+            binding.songUnlikeOn.visibility = View.GONE
         }
     }
 }

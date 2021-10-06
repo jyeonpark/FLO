@@ -1,5 +1,6 @@
 package com.example.flo
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,11 +8,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.flo.databinding.FragmentAlbumBinding
-import com.example.flo.databinding.FragmentHomeBinding
 
 class AlbumFragment : Fragment() {
 
     lateinit var binding: FragmentAlbumBinding
+    var selectAll : Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,6 +47,18 @@ class AlbumFragment : Fragment() {
             setMixstatus(true)
         }
 
+        binding.albumLikeOffIv.setOnClickListener {
+            setalbumLike(false)
+        }
+
+        binding.albumLikeOnIv.setOnClickListener {
+            setalbumLike(true)
+        }
+
+        binding.songSelectAllTv.setOnClickListener {
+            selectAll(selectAll)
+        }
+
         return binding.root
     }
 
@@ -53,9 +66,41 @@ class AlbumFragment : Fragment() {
         if (isMix) {
             binding.songMixOffIv.visibility = View.VISIBLE
             binding.songMixOnIv.visibility = View.GONE
+            Toast.makeText(activity, "일반 곡 순서로 변경했습니다.", Toast.LENGTH_SHORT).show()
         } else {
             binding.songMixOffIv.visibility = View.GONE
             binding.songMixOnIv.visibility = View.VISIBLE
+            Toast.makeText(activity, "내 취향 순서로 변경했습니다.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun selectAll(select : Boolean){
+        if(select){
+            binding.songPlaylistSelectOffIv.visibility = View.VISIBLE
+            binding.songPlaylistSelectOnIv.visibility = View.GONE
+            binding.songSelectAllTv.text = "선택해제"
+            binding.songSelectAllTv.setTextColor(Color.parseColor("#808080"))
+            binding.songMusicListLayout.setBackgroundColor(Color.parseColor("#FFFFFF"))
+            selectAll = false
+        }
+        else{
+            binding.songPlaylistSelectOffIv.visibility = View.GONE
+            binding.songPlaylistSelectOnIv.visibility = View.VISIBLE
+            binding.songSelectAllTv.text = "전체선택"
+            binding.songSelectAllTv.setTextColor(Color.parseColor("#3f3fff"))
+            binding.songMusicListLayout.setBackgroundColor(Color.parseColor("#EAEAEA"))
+            selectAll = true
+        }
+    }
+
+    fun setalbumLike(like: Boolean){
+        if(like){
+            binding.albumLikeOffIv.visibility = View.VISIBLE
+            binding.albumLikeOnIv.visibility = View.GONE
+        }
+        else{
+            binding.albumLikeOffIv.visibility = View.GONE
+            binding.albumLikeOnIv.visibility = View.VISIBLE
         }
     }
 }
