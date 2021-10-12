@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/mylist_text_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="멋진 리스트를 공개로 설정하고 친구들과 공유해보세요!"
+        android:textSize="13sp"
+        android:textColor="#959595"
+        android:layout_marginTop="25dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:src="@drawable/btn_question_mark"
+        android:layout_marginStart="5dp"
+        app:layout_constraintStart_toEndOf="@id/mylist_text_tv"
+        app:layout_constraintTop_toTopOf="@id/mylist_text_tv"
+        app:layout_constraintBottom_toBottomOf="@+id/mylist_text_tv"/>
+
+
+    <ImageView
+        android:id="@+id/mylist_add_icon_iv"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:src="@drawable/btn_plus"
+        android:layout_marginTop="25dp"
+        app:layout_constraintStart_toStartOf="@id/mylist_text_tv"
+        app:layout_constraintTop_toBottomOf="@id/mylist_text_tv"/>
+
+    <TextView
+        android:id="@+id/mylist_add_text_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="리스트 추가"
+        android:textSize="15sp"
+        android:textColor="@color/black"
+        android:layout_marginStart="5dp"
+        app:layout_constraintStart_toEndOf="@id/mylist_add_icon_iv"
+        app:layout_constraintTop_toTopOf="@id/mylist_add_icon_iv"
+        app:layout_constraintBottom_toBottomOf="@id/mylist_add_icon_iv"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="편집"
+        android:textSize="15sp"
+        android:textColor="@color/black"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/mylist_add_icon_iv"
+        app:layout_constraintBottom_toBottomOf="@id/mylist_add_icon_iv"/>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/mylist_album_01_cv"
+        android:layout_width="70dp"
+        android:layout_height="65dp"
+        app:cardCornerRadius="5dp"
+        android:layout_marginTop="30dp"
+        app:cardBackgroundColor="#D5D5D5"
+        app:layout_constraintStart_toStartOf="@id/mylist_add_icon_iv"
+        app:layout_constraintTop_toBottomOf="@id/mylist_add_icon_iv">
+
+        <ImageView
+            android:id="@+id/mylist_album_01_iv"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:src="@drawable/img_capture" />
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/mylist_album_01_text_01_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="13dp"
+        android:text="캡쳐 이미지로 만들기"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintTop_toTopOf="@id/mylist_album_01_cv"
+        app:layout_constraintStart_toEndOf="@id/mylist_album_01_cv"/>
+
+    <TextView
+        android:id="@+id/mylist_album_01_text_02_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="자동으로 내 리스트를 만들어 드립니다."
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@id/mylist_album_01_text_01_tv"
+        app:layout_constraintStart_toStartOf="@id/mylist_album_01_text_01_tv"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/mylist_album_02_cv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="5dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="@id/mylist_album_01_cv"
+        app:layout_constraintTop_toBottomOf="@id/mylist_album_01_cv">
+
+        <ImageView
+            android:id="@+id/mylist_album_02_iv"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:src="@drawable/img_album_exp3" />
+
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/mylist_album_02_lock_iv"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:src="@drawable/ic_lock"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintTop_toTopOf="@id/mylist_album_02_cv"
+        app:layout_constraintStart_toEndOf="@id/mylist_album_02_cv"/>
+
+    <TextView
+        android:id="@+id/mylist_album_02_text_01_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="popsong"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintTop_toTopOf="@id/mylist_album_02_lock_iv"
+        app:layout_constraintBottom_toBottomOf="@id/mylist_album_02_lock_iv"
+        app:layout_constraintStart_toEndOf="@id/mylist_album_02_lock_iv"/>
+
+    <TextView
+        android:id="@+id/mylist_album_02_text_02_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="39곡"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@id/mylist_album_02_lock_iv"
+        app:layout_constraintStart_toStartOf="@id/mylist_album_02_lock_iv"/>
+
+    <ImageView
+        android:id="@+id/mylist_album_02_play_iv"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/btn_player_play"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintTop_toTopOf="@id/mylist_album_02_cv"
+        app:layout_constraintBottom_toBottomOf="@id/mylist_album_02_cv"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/mylist_album_03_cv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="5dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="@id/mylist_album_02_cv"
+        app:layout_constraintTop_toBottomOf="@id/mylist_album_02_cv">
+
+        <ImageView
+            android:id="@+id/mylist_album_03_iv"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:src="@drawable/img_album_exp4" />
+
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/mylist_album_03_lock_iv"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:src="@drawable/ic_lock"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintTop_toTopOf="@id/mylist_album_03_cv"
+        app:layout_constraintStart_toEndOf="@id/mylist_album_03_cv"/>
+
+    <TextView
+        android:id="@+id/mylist_album_03_text_01_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="발라드"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintTop_toTopOf="@id/mylist_album_03_lock_iv"
+        app:layout_constraintBottom_toBottomOf="@id/mylist_album_03_lock_iv"
+        app:layout_constraintStart_toEndOf="@id/mylist_album_03_lock_iv"/>
+
+    <TextView
+        android:id="@+id/mylist_album_03_text_02_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="52곡"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@id/mylist_album_03_lock_iv"
+        app:layout_constraintStart_toStartOf="@id/mylist_album_03_lock_iv"/>
+
+    <ImageView
+        android:id="@+id/mylist_album_03_play_iv"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/btn_player_play"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintTop_toTopOf="@id/mylist_album_03_cv"
+        app:layout_constraintBottom_toBottomOf="@id/mylist_album_03_cv"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

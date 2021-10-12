@@ -1,0 +1,680 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <GridLayout
+        android:id="@+id/recentlisten_gridlayout_gl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:columnCount="6"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/recentlisten_text_01_tv"
+            android:layout_width="70dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="17dp"
+            android:background="@drawable/look_menu_background_02"
+            android:gravity="center"
+            android:text="곡"
+            android:textColor="@color/flo_blue"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/recentlisten_text_02_tv"
+            android:layout_width="70dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="17dp"
+            android:background="@drawable/look_menu_background_02"
+            android:gravity="center"
+            android:text="오디오"
+            android:textColor="#656565"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/recentlisten_text_03_tv"
+            android:layout_width="70dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="17dp"
+            android:background="@drawable/look_menu_background_02"
+            android:gravity="center"
+            android:text="리스트"
+            android:textColor="#656565"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/recentlisten_04_tv"
+            android:layout_width="70dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="17dp"
+            android:background="@drawable/look_menu_background_02"
+            android:gravity="center"
+            android:text="영상"
+            android:textColor="#656565"
+            android:textSize="15sp" />
+
+    </GridLayout>
+
+    <ImageView
+        android:id="@+id/recentlisten_playlist_select_off_iv"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/btn_playlist_select_off"
+        app:layout_constraintBottom_toBottomOf="@id/recentlisten_select_all_tv"
+        app:layout_constraintEnd_toStartOf="@id/recentlisten_select_all_tv"
+        app:layout_constraintTop_toTopOf="@id/recentlisten_select_all_tv" />
+
+    <ImageView
+        android:id="@+id/recentlisten_playlist_select_on_iv"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/btn_playlist_select_on"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/recentlisten_select_all_tv"
+        app:layout_constraintEnd_toStartOf="@id/recentlisten_select_all_tv"
+        app:layout_constraintTop_toTopOf="@id/recentlisten_select_all_tv" />
+
+    <TextView
+        android:id="@+id/recentlisten_select_all_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:text="전체선택"
+        app:layout_goneMarginTop="20dp"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recentlisten_gridlayout_gl" />
+
+    <TextView
+        android:id="@+id/recentlisten_all_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:text="전체듣기"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/recentlisten_playlist_select_off_iv"
+        app:layout_constraintStart_toEndOf="@id/recentlisten_arrow_right_iv"
+        app:layout_constraintTop_toTopOf="@id/recentlisten_playlist_select_off_iv" />
+
+    <TextView
+        android:id="@+id/recentlisten_edit_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:text="편집"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/recentlisten_playlist_select_off_iv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/recentlisten_playlist_select_off_iv" />
+
+
+    <ImageView
+        android:id="@+id/recentlisten_arrow_right_iv"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/icon_browse_arrow_right"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="@id/recentlisten_select_all_tv"
+        app:layout_constraintStart_toEndOf="@+id/recentlisten_select_all_tv"
+        app:layout_constraintTop_toTopOf="@id/recentlisten_select_all_tv" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recentlisten_all_tv"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:id="@+id/recentlisten_music_list_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/recentlisten_01_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="13dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/recentlisten_album_01_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="15dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" >
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/img_album_exp" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/recentlisten_title_01_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="Butter (feat. Megan Thee Stallion)"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:layout_marginTop="5dp"
+                    app:layout_constraintStart_toEndOf="@id/recentlisten_album_01_iv"
+                    app:layout_constraintTop_toTopOf="@id/recentlisten_album_01_iv" />
+
+                <TextView
+                    android:id="@+id/recentlisten_singer_01_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="방탄소년단"
+                    android:textSize="10sp"
+                    app:layout_constraintStart_toStartOf="@id/recentlisten_title_01_tv"
+                    app:layout_constraintTop_toBottomOf="@id/recentlisten_title_01_tv" />
+
+                <ImageView
+                    android:id="@+id/recentlisten_music_01_ic"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:src="@drawable/ic_music"
+                    android:layout_marginStart="20dp"
+                    app:layout_constraintStart_toEndOf="@id/recentlisten_singer_01_tv"
+                    app:layout_constraintTop_toTopOf="@id/recentlisten_singer_01_tv"
+                    app:layout_constraintBottom_toBottomOf="@id/recentlisten_singer_01_tv"/>
+
+                <TextView
+                    android:id="@+id/recentlisten_music_01_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="120"
+                    android:textSize="10sp"
+                    android:layout_marginStart="5dp"
+                    app:layout_constraintStart_toEndOf="@id/recentlisten_music_01_ic"
+                    app:layout_constraintTop_toTopOf="@id/recentlisten_singer_01_tv"
+                    app:layout_constraintBottom_toBottomOf="@id/recentlisten_singer_01_tv"/>
+
+
+                <ImageView
+                    android:id="@+id/recentlisten_more_01_iv"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/btn_player_more"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/recentlisten_play_01_iv"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/btn_player_play"
+                    android:layout_marginEnd="5dp"
+                    app:layout_constraintBottom_toBottomOf="@id/recentlisten_more_01_iv"
+                    app:layout_constraintEnd_toStartOf="@id/recentlisten_more_01_iv"
+                    app:layout_constraintTop_toTopOf="@id/recentlisten_more_01_iv" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/recentlisten_02_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="13dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/recentlisten_album_02_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/img_album_exp2" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/recentlisten_title_02_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:text="라일락"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toEndOf="@id/recentlisten_album_02_iv"
+                    app:layout_constraintTop_toTopOf="@id/recentlisten_album_02_iv" />
+
+                <TextView
+                    android:id="@+id/recentlisten_singer_02_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="아이유 (IU)"
+                    android:textSize="10sp"
+                    app:layout_constraintStart_toStartOf="@id/recentlisten_title_02_tv"
+                    app:layout_constraintTop_toBottomOf="@id/recentlisten_title_02_tv" />
+
+
+                <ImageView
+                    android:id="@+id/recentlisten_music_02_ic"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:src="@drawable/ic_music"
+                    android:layout_marginStart="20dp"
+                    app:layout_constraintStart_toEndOf="@id/recentlisten_singer_02_tv"
+                    app:layout_constraintTop_toTopOf="@id/recentlisten_singer_02_tv"
+                    app:layout_constraintBottom_toBottomOf="@id/recentlisten_singer_02_tv"/>
+
+                <TextView
+                    android:id="@+id/recentlisten_music_02_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="91"
+                    android:textSize="10sp"
+                    android:layout_marginStart="5dp"
+                    app:layout_constraintStart_toEndOf="@id/recentlisten_music_02_ic"
+                    app:layout_constraintTop_toTopOf="@id/recentlisten_singer_02_tv"
+                    app:layout_constraintBottom_toBottomOf="@id/recentlisten_singer_02_tv"/>
+
+                <ImageView
+                    android:id="@+id/recentlisten_more_02_iv"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/btn_player_more"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/recentlisten_play_02_iv"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginEnd="5dp"
+                    android:src="@drawable/btn_player_play"
+                    app:layout_constraintBottom_toBottomOf="@id/recentlisten_more_02_iv"
+                    app:layout_constraintEnd_toStartOf="@id/recentlisten_more_02_iv"
+                    app:layout_constraintTop_toTopOf="@id/recentlisten_more_02_iv" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/recentlisten_03_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="13dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/recentlisten_album_03_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="15dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" >
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/img_album_exp3" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/recentlisten_title_03_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="그건 아마 우리의 잘못은 아닐 거야"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:layout_marginTop="5dp"
+                    app:layout_constraintStart_toEndOf="@id/recentlisten_album_03_iv"
+                    app:layout_constraintTop_toTopOf="@id/recentlisten_album_03_iv" />
+
+                <TextView
+                    android:id="@+id/recentlisten_singer_03_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="백예린 (Yerin Baek)"
+                    android:textSize="10sp"
+                    app:layout_constraintStart_toStartOf="@id/recentlisten_title_03_tv"
+                    app:layout_constraintTop_toBottomOf="@id/recentlisten_title_03_tv" />
+
+                <ImageView
+                    android:id="@+id/recentlisten_music_03_ic"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:src="@drawable/ic_music"
+                    android:layout_marginStart="20dp"
+                    app:layout_constraintStart_toEndOf="@id/recentlisten_singer_03_tv"
+                    app:layout_constraintTop_toTopOf="@id/recentlisten_singer_03_tv"
+                    app:layout_constraintBottom_toBottomOf="@id/recentlisten_singer_03_tv"/>
+
+                <TextView
+                    android:id="@+id/recentlisten_music_03_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="52"
+                    android:textSize="10sp"
+                    android:layout_marginStart="5dp"
+                    app:layout_constraintStart_toEndOf="@id/recentlisten_music_03_ic"
+                    app:layout_constraintTop_toTopOf="@id/recentlisten_singer_03_tv"
+                    app:layout_constraintBottom_toBottomOf="@id/recentlisten_singer_03_tv"/>
+
+
+                <ImageView
+                    android:id="@+id/recentlisten_more_03_iv"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/btn_player_more"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:id="@+id/recentlisten_play_03_iv"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/btn_player_play"
+                    android:layout_marginEnd="5dp"
+                    app:layout_constraintBottom_toBottomOf="@id/recentlisten_more_03_iv"
+                    app:layout_constraintEnd_toStartOf="@id/recentlisten_more_03_iv"
+                    app:layout_constraintTop_toTopOf="@id/recentlisten_more_03_iv" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/recentlisten_04_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="13dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/recentlisten_album_04_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="15dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" >
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/img_album_exp4" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/recentlisten_title_04_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="운전만해 (We Ride)"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:layout_marginTop="5dp"
+                    app:layout_constraintStart_toEndOf="@id/recentlisten_album_04_iv"
+                    app:layout_constraintTop_toTopOf="@id/recentlisten_album_04_iv" />
+
+                <TextView
+                    android:id="@+id/recentlisten_singer_04_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="브레이브걸스"
+                    android:textSize="10sp"
+                    app:layout_constraintStart_toStartOf="@id/recentlisten_title_04_tv"
+                    app:layout_constraintTop_toBottomOf="@id/recentlisten_title_04_tv" />
+
+                <ImageView
+                    android:id="@+id/recentlisten_music_04_ic"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:src="@drawable/ic_music"
+                    android:layout_marginStart="20dp"
+                    app:layout_constraintStart_toEndOf="@id/recentlisten_singer_04_tv"
+                    app:layout_constraintTop_toTopOf="@id/recentlisten_singer_04_tv"
+                    app:layout_constraintBottom_toBottomOf="@id/recentlisten_singer_04_tv"/>
+
+                <TextView
+                    android:id="@+id/recentlisten_music_04_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="41"
+                    android:textSize="10sp"
+                    android:layout_marginStart="5dp"
+                    app:layout_constraintStart_toEndOf="@id/recentlisten_music_04_ic"
+                    app:layout_constraintTop_toTopOf="@id/recentlisten_singer_04_tv"
+                    app:layout_constraintBottom_toBottomOf="@id/recentlisten_singer_04_tv"/>
+
+
+                <ImageView
+                    android:id="@+id/recentlisten_more_04_iv"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/btn_player_more"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:id="@+id/recentlisten_play_04_iv"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/btn_player_play"
+                    android:layout_marginEnd="5dp"
+                    app:layout_constraintBottom_toBottomOf="@id/recentlisten_more_04_iv"
+                    app:layout_constraintEnd_toStartOf="@id/recentlisten_more_04_iv"
+                    app:layout_constraintTop_toTopOf="@id/recentlisten_more_04_iv" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/recentlisten_05_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="13dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/recentlisten_album_05_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="15dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" >
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/img_album_exp5" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/recentlisten_title_05_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="FLYING HIGH WITH U"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:layout_marginTop="5dp"
+                    app:layout_constraintStart_toEndOf="@id/recentlisten_album_05_iv"
+                    app:layout_constraintTop_toTopOf="@id/recentlisten_album_05_iv" />
+
+                <TextView
+                    android:id="@+id/recentlisten_singer_05_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="빈첸"
+                    android:textSize="10sp"
+                    app:layout_constraintStart_toStartOf="@id/recentlisten_title_05_tv"
+                    app:layout_constraintTop_toBottomOf="@id/recentlisten_title_05_tv" />
+
+                <ImageView
+                    android:id="@+id/recentlisten_music_05_ic"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:src="@drawable/ic_music"
+                    android:layout_marginStart="20dp"
+                    app:layout_constraintStart_toEndOf="@id/recentlisten_singer_05_tv"
+                    app:layout_constraintTop_toTopOf="@id/recentlisten_singer_05_tv"
+                    app:layout_constraintBottom_toBottomOf="@id/recentlisten_singer_05_tv"/>
+
+                <TextView
+                    android:id="@+id/recentlisten_music_05_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="31"
+                    android:textSize="10sp"
+                    android:layout_marginStart="5dp"
+                    app:layout_constraintStart_toEndOf="@id/recentlisten_music_05_ic"
+                    app:layout_constraintTop_toTopOf="@id/recentlisten_singer_05_tv"
+                    app:layout_constraintBottom_toBottomOf="@id/recentlisten_singer_05_tv"/>
+
+                <ImageView
+                    android:id="@+id/recentlisten_more_05_iv"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/btn_player_more"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:id="@+id/recentlisten_play_05_iv"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/btn_player_play"
+                    android:layout_marginEnd="5dp"
+                    app:layout_constraintBottom_toBottomOf="@id/recentlisten_more_05_iv"
+                    app:layout_constraintEnd_toStartOf="@id/recentlisten_more_05_iv"
+                    app:layout_constraintTop_toTopOf="@id/recentlisten_more_05_iv" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/recentlisten_06_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="13dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/recentlisten_album_06_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="15dp"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" >
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/img_album_exp6" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/recentlisten_title_06_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="DUN DUN DANCE"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:layout_marginTop="5dp"
+                    app:layout_constraintStart_toEndOf="@id/recentlisten_album_06_iv"
+                    app:layout_constraintTop_toTopOf="@id/recentlisten_album_06_iv" />
+
+                <TextView
+                    android:id="@+id/recentlisten_singer_06_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="오마이걸 (OH MY GIRL)"
+                    android:textSize="10sp"
+                    app:layout_constraintStart_toStartOf="@id/recentlisten_title_06_tv"
+                    app:layout_constraintTop_toBottomOf="@id/recentlisten_title_06_tv" />
+
+                <ImageView
+                    android:id="@+id/recentlisten_music_06_ic"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:src="@drawable/ic_music"
+                    android:layout_marginStart="20dp"
+                    app:layout_constraintStart_toEndOf="@id/recentlisten_singer_06_tv"
+                    app:layout_constraintTop_toTopOf="@id/recentlisten_singer_06_tv"
+                    app:layout_constraintBottom_toBottomOf="@id/recentlisten_singer_06_tv"/>
+
+                <TextView
+                    android:id="@+id/recentlisten_music_06_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="13"
+                    android:textSize="10sp"
+                    android:layout_marginStart="5dp"
+                    app:layout_constraintStart_toEndOf="@id/recentlisten_music_06_ic"
+                    app:layout_constraintTop_toTopOf="@id/recentlisten_singer_06_tv"
+                    app:layout_constraintBottom_toBottomOf="@id/recentlisten_singer_06_tv"/>
+
+
+                <ImageView
+                    android:id="@+id/recentlisten_more_06_iv"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/btn_player_more"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:id="@+id/recentlisten_play_06_iv"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/btn_player_play"
+                    android:layout_marginEnd="5dp"
+                    app:layout_constraintBottom_toBottomOf="@id/recentlisten_more_06_iv"
+                    app:layout_constraintEnd_toStartOf="@id/recentlisten_more_06_iv"
+                    app:layout_constraintTop_toTopOf="@id/recentlisten_more_06_iv" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/recommend2_background_iv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="430dp"
+        android:scaleType="centerCrop"
+        android:tintMode="src_atop"
+        app:tint="#4DFFEB3B"
+        android:src="@drawable/img_default_4_x_1" />
+
+    <ImageView
+        android:id="@+id/recommend2_btn_setting_iv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/btn_main_setting" />
+
+    <ImageView
+        android:id="@+id/recommend2_btn_ticket_iv"
+        app:layout_constraintEnd_toStartOf="@id/recommend2_btn_setting_iv"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/btn_main_ticket" />
+
+    <ImageView
+        android:id="@+id/recommend2_btn_nugu_iv"
+        app:layout_constraintEnd_toStartOf="@id/recommend2_btn_ticket_iv"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/btn_nugu" />
+
+    <TextView
+        android:id="@+id/recommend2_title_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recommend2_btn_setting_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="달밤의 감성 산책"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/recommend2_btn_play_iv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recommend2_title_tv"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/btn_panel_play_large" />
+
+    <ImageView
+        android:id="@+id/recommend2_album_exp_iv"
+        app:layout_constraintBottom_toBottomOf="@id/recommend2_background_iv"
+        app:layout_constraintStart_toStartOf="@id/recommend2_title_tv"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="40dp"
+        android:src="@drawable/img_album_exp6" />
+
+    <TextView
+        android:id="@+id/recommend2_album_exp_text_01_tv"
+        app:layout_constraintStart_toEndOf="@id/recommend2_album_exp_iv"
+        app:layout_constraintTop_toTopOf="@id/recommend2_album_exp_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="3dp"
+        android:text="Dun Dun Dance"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/recommend2_album_exp_text_02_tv"
+        app:layout_constraintStart_toEndOf="@id/recommend2_album_exp_iv"
+        app:layout_constraintTop_toBottomOf="@id/recommend2_album_exp_text_01_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="오마이걸 (OH MY GIRL)"
+        android:textColor="@color/white" />
+
+    <ImageView
+        android:id="@+id/recommend2_album_exp_02_iv"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/img_album_exp5"
+        app:layout_constraintBottom_toTopOf="@id/recommend2_album_exp_iv"
+        app:layout_constraintStart_toStartOf="@id/recommend2_title_tv" />
+
+    <TextView
+        android:id="@+id/recommend2_album_exp_02_text_01_tv"
+        app:layout_constraintStart_toEndOf="@id/recommend2_album_exp_iv"
+        app:layout_constraintTop_toTopOf="@id/recommend2_album_exp_02_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="3dp"
+        android:text="FLYING HIGH WITH U"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/recommend2_album_exp_02_text_02_tv"
+        app:layout_constraintStart_toEndOf="@id/recommend2_album_exp_iv"
+        app:layout_constraintTop_toBottomOf="@id/recommend2_album_exp_02_text_01_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="빈첸"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/recommend2_album_date_tv"
+        app:layout_constraintBottom_toTopOf="@id/recommend2_album_exp_02_iv"
+        app:layout_constraintStart_toStartOf="@id/recommend2_album_exp_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="총 23곡 2021.10.11"
+        android:textColor="@color/white" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

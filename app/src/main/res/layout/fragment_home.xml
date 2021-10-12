@@ -11,143 +11,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/home_background_iv"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/home_recommend_vp"
             android:layout_width="match_parent"
             android:layout_height="430dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/img_default_4_x_1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:overScrollMode="never"/>
 
-        <ImageView
-            android:id="@+id/home_btn_setting_iv"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/btn_main_setting"
-            android:scaleType="centerCrop"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <ImageView
-            android:id="@+id/home_btn_ticket_iv"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/btn_main_ticket"
-            android:scaleType="centerCrop"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="20dp"
-            app:layout_constraintEnd_toStartOf="@id/home_btn_setting_iv"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <ImageView
-            android:id="@+id/home_btn_nugu_iv"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/btn_nugu"
-            android:scaleType="centerCrop"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="20dp"
-            app:layout_constraintEnd_toStartOf="@id/home_btn_ticket_iv"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <TextView
-            android:id="@+id/home_title_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="포근하게 덮어주는 꿈의\n목소리"
-            android:fontFamily="sans-serif-medium"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="25dp"
-            app:layout_constraintTop_toBottomOf="@id/home_btn_setting_iv"
+        <me.relex.circleindicator.CircleIndicator3
+            android:id="@+id/home_circleindicator_ci"
+            android:layout_height="35dp"
+            android:layout_width="match_parent"
+            app:ci_drawable="@drawable/selected_dot"
+            android:layout_marginTop="3dp"
+            app:ci_width="5dp"
+            app:ci_height="5dp"
+            app:ci_margin="7dp"
             app:layout_constraintStart_toStartOf="parent"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            android:textColor="@color/white" />
-
-        <ImageView
-            android:id="@+id/home_btn_play_iv"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/btn_panel_play_large"
-            app:layout_constraintTop_toBottomOf="@id/home_title_tv"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="5dp"/>
+            app:layout_constraintTop_toBottomOf="@id/home_recommend_vp"/>
 
-        <ImageView
-            android:id="@+id/home_album_exp_iv"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginBottom="40dp"
-            android:src="@drawable/img_album_exp"
-            app:layout_constraintStart_toStartOf="@id/home_title_tv"
-            app:layout_constraintBottom_toBottomOf="@id/home_background_iv"/>
-
-        <TextView
-            android:id="@+id/home_album_exp_text_01_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="잠이 안온다"
-            android:textColor="@color/white"
-            android:layout_marginTop="3dp"
-            android:layout_marginStart="10dp"
-            app:layout_constraintTop_toTopOf="@id/home_album_exp_iv"
-            app:layout_constraintStart_toEndOf="@id/home_album_exp_iv"/>
-
-        <TextView
-            android:id="@+id/home_album_exp_text_02_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="젠(zen)"
-            android:textColor="@color/white"
-            android:layout_marginStart="10dp"
-            app:layout_constraintTop_toBottomOf="@id/home_album_exp_text_01_tv"
-            app:layout_constraintStart_toEndOf="@id/home_album_exp_iv"/>
-
-        <ImageView
-            android:id="@+id/home_album_exp_02_iv"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginBottom="20dp"
-            android:src="@drawable/img_album_exp"
-            app:layout_constraintStart_toStartOf="@id/home_title_tv"
-            app:layout_constraintBottom_toTopOf="@id/home_album_exp_iv"/>
-
-        <TextView
-            android:id="@+id/home_album_exp_02_text_01_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="잠이 안온다"
-            android:textColor="@color/white"
-            android:layout_marginTop="3dp"
-            android:layout_marginStart="10dp"
-            app:layout_constraintTop_toTopOf="@id/home_album_exp_02_iv"
-            app:layout_constraintStart_toEndOf="@id/home_album_exp_iv"/>
-
-        <TextView
-            android:id="@+id/home_album_exp_02_text_02_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="젠(zen)"
-            android:textColor="@color/white"
-            android:layout_marginStart="10dp"
-            app:layout_constraintTop_toBottomOf="@id/home_album_exp_02_text_01_tv"
-            app:layout_constraintStart_toEndOf="@id/home_album_exp_iv"/>
-
-        <TextView
-            android:id="@+id/home_album_date_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="총 15곡 2021.09.27"
-            android:textColor="@color/white"
-            android:layout_marginBottom="10dp"
-            app:layout_constraintStart_toStartOf="@id/home_album_exp_iv"
-            app:layout_constraintBottom_toTopOf="@id/home_album_exp_02_iv"/>
 
         <TextView
             android:id="@+id/home_today_release_tv"
@@ -157,11 +42,11 @@
             android:fontFamily="sans-serif-medium"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:layout_marginStart="15dp"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/home_background_iv" />
+            app:layout_constraintTop_toBottomOf="@id/home_circleindicator_ci" />
 
         <ImageView
             android:id="@+id/home_btn_arrow_more_iv"
@@ -305,7 +190,7 @@
                                     android:id="@+id/home_today_release_album_02_iv"
                                     android:layout_width="150dp"
                                     android:layout_height="150dp"
-                                    android:src="@drawable/img_album_exp2" />
+                                    android:src="@drawable/img_album_exp3" />
 
                             </androidx.cardview.widget.CardView>
 
@@ -326,7 +211,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_marginStart="15dp"
-                        android:text="LILAC"
+                        android:text="지켜줄게"
                         android:textColor="@color/black"
                         android:textSize="17sp" />
 
@@ -336,7 +221,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:layout_marginStart="15dp"
-                        android:text="아이유 (IU)"
+                        android:text="백예린 (Yerin Baek)"
                         android:textSize="13sp" />
 
                 </LinearLayout>
@@ -365,7 +250,7 @@
                                     android:id="@+id/home_today_release_album_03_iv"
                                     android:layout_width="150dp"
                                     android:layout_height="150dp"
-                                    android:src="@drawable/img_album_exp2" />
+                                    android:src="@drawable/img_album_exp4" />
 
                             </androidx.cardview.widget.CardView>
 
@@ -386,7 +271,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_marginStart="15dp"
-                        android:text="LILAC"
+                        android:text="Next Level"
                         android:textColor="@color/black"
                         android:textSize="17sp" />
 
@@ -396,7 +281,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:layout_marginStart="15dp"
-                        android:text="아이유 (IU)"
+                        android:text="aespa"
                         android:textSize="13sp" />
 
                 </LinearLayout>
@@ -425,7 +310,7 @@
                                     android:id="@+id/home_today_release_album_04_iv"
                                     android:layout_width="150dp"
                                     android:layout_height="150dp"
-                                    android:src="@drawable/img_album_exp2" />
+                                    android:src="@drawable/img_album_exp5" />
 
                             </androidx.cardview.widget.CardView>
 
@@ -446,7 +331,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_marginStart="15dp"
-                        android:text="LILAC"
+                        android:text="소나기"
                         android:textColor="@color/black"
                         android:textSize="17sp" />
 
@@ -456,7 +341,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:layout_marginStart="15dp"
-                        android:text="아이유 (IU)"
+                        android:text="빈첸"
                         android:textSize="13sp" />
 
                 </LinearLayout>
@@ -485,7 +370,7 @@
                                     android:id="@+id/home_today_release_album_05_iv"
                                     android:layout_width="150dp"
                                     android:layout_height="150dp"
-                                    android:src="@drawable/img_album_exp2" />
+                                    android:src="@drawable/img_album_exp6" />
 
                             </androidx.cardview.widget.CardView>
 
@@ -506,7 +391,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_marginStart="15dp"
-                        android:text="LILAC"
+                        android:text="초대장"
                         android:textColor="@color/black"
                         android:textSize="17sp" />
 
@@ -516,7 +401,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:layout_marginStart="15dp"
-                        android:text="아이유 (IU)"
+                        android:text="오마이걸 (OH MY GIRL)"
                         android:textSize="13sp" />
 
                 </LinearLayout>
@@ -525,13 +410,14 @@
 
         </HorizontalScrollView>
 
-        <ImageView
-            android:id="@+id/home_img_viewpager_exp_01_iv"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/home_banner_vp"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:layout_marginTop="30dp"
-            android:src="@drawable/img_home_viewpager_exp"
-            app:layout_constraintTop_toBottomOf="@id/home_today_release_scrollview_hs"/>
+            android:layout_marginTop="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/home_today_release_scrollview_hs" />
 
         <TextView
             android:id="@+id/home_podcast_txt_tv"
@@ -545,7 +431,7 @@
             android:layout_marginStart="15dp"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/home_img_viewpager_exp_01_iv" />
+            app:layout_constraintTop_toBottomOf="@id/home_banner_vp" />
 
 
         <HorizontalScrollView
