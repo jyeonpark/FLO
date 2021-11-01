@@ -1,56 +1,52 @@
 package com.example.flo
 
 import android.os.Bundle
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.flo.databinding.ActivitySongBinding
-import android.R
 import android.app.AlertDialog
-import android.app.Dialog
-import android.content.Context
 import android.content.DialogInterface
-import android.content.SharedPreferences
-import android.os.Handler
-import android.os.Looper
+import android.media.MediaPlayer
 import android.util.Log
 import android.view.*
+import androidx.core.view.isVisible
+import com.google.gson.Gson
 
 
 class SongActivity : AppCompatActivity() {
 
     lateinit var binding : ActivitySongBinding
-    private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var editor: SharedPreferences.Editor
-    private var second: Int = 0
+
     private var oneRepeating : Boolean = false
 
-    private val song: Song = Song()
+    private var song: Song = Song()
     private lateinit var player : Player
-    // private val handler = Handler(Looper.getMainLooper())
+
+    var second : Int = 0
+    var startCounter : Int = 0 // 0 이면 oncreate->onstart , 0보다 크면 바로 onstart 로 온 것
+    var pauseCounter : Int = 0
+
+    // 미디어 플레이어
+    private var mediaPlayer : MediaPlayer? = null
+    // Gson
+    private var gson: Gson = Gson()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySongBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        sharedPreferences = getSharedPreferences("songShared",0)
-        editor = sharedPreferences.edit()
-
         initSong()
-
-        player = Player(song.playTime, song.isPlaying)
-        player.start()
+//
+//        player = Player(song.playTime, song.isPlaying)
+//        player.start()
 
         binding.songDownIb.setOnClickListener { // 화면 내리기
             finish()
         }
 
         binding.songMiniplayerIv.setOnClickListener { // 일시정지 -> 재생
-            player.isPlaying = true
             setPlayerstatus(true)
-            song.isPlaying = true
-
 
             if (player.isAlive){
                 player.isPlaying = true
@@ -60,11 +56,14 @@ class SongActivity : AppCompatActivity() {
                 player.start()
             }
 
+            mediaPlayer?.start()
+
         }
 
         binding.songPauseIv.setOnClickListener { // 재생 -> 일시정지
-            player.isPlaying = false
+            pauseCounter += 1
             setPlayerstatus(false)
+            mediaPlayer?.pause()
         }
 
         binding.songRepeatOffIv.setOnClickListener { // 전체반복재생 켜기
@@ -106,31 +105,61 @@ class SongActivity : AppCompatActivity() {
     }
 
     private fun initSong(){
-        if (intent.hasExtra("title") && intent.hasExtra("singer") && intent.hasExtra("playTime") && intent.hasExtra("isPlaying")) {
+        if (intent.hasExtra("title") && intent.hasExtra("singer") && intent.hasExtra("second") && intent.hasExtra("playTime") && intent.hasExtra("isPlaying") && intent.hasExtra("music")) {
             song.title = intent.getStringExtra("title")!!
             song.singer = intent.getStringExtra("singer")!!
+            song.second = intent.getIntExtra("second", 0)
             song.playTime = intent.getIntExtra("playTime", 0)
             song.isPlaying = intent.getBooleanExtra("isPlaying", false)
-            binding.songEndTimeTv.text = String.format("%02d:%02d", song.playTime/60, song.playTime % 60)
-            binding.songTitleTv.text = song.title
-            binding.songSingerTv.text = song.singer
-            setPlayerstatus(song.isPlaying)
+            song.music = intent.getStringExtra("music")!!
 
-            second = sharedPreferences.getInt("second", 0)
-            Log.d("second",second.toString())
-            binding.songPlayerSb.progress = second * 1000 / song.playTime
-            binding.songProgressTimeTv.text = String.format("%02d:%02d", second/60, second%60)
         }
+    }
+
+    private fun setMiniPlayer(song: Song) {
+        binding.songEndTimeTv.text = String.format("%02d:%02d", song.playTime/60, song.playTime % 60)
+        binding.songTitleTv.text = song.title
+        binding.songSingerTv.text = song.singer
+        binding.songPlayerSb.progress = (song.second*1000/song.playTime)
+        binding.songProgressTimeTv.text = String.format("%02d:%02d", song.second/60, song.second%60)
+
+
+        val music = resources.getIdentifier(song.music, "raw", this.packageName)
+        mediaPlayer = MediaPlayer.create(this, music)
+        second = song.second
+        mediaPlayer?.seekTo(second * 1000)
+
     }
 
     fun setPlayerstatus(isPlaying : Boolean){
         if(isPlaying){
             binding.songMiniplayerIv.visibility = View.GONE
             binding.songPauseIv.visibility = View.VISIBLE
+            player.isPlaying = true
+            song.isPlaying = true
+//            if (startCounter > 1) {
+//                mediaPlayer?.setOnPreparedListener {
+//                    mediaPlayer?.start()
+//                }
+//            }
+//            else {
+//                mediaPlayer?.start()
+//            }
         }
         else{
             binding.songMiniplayerIv.visibility = View.VISIBLE
             binding.songPauseIv.visibility = View.GONE
+            player.isPlaying = false
+            song.isPlaying = false
+//            if (pauseCounter != 0) {
+//                if (startCounter > 1) {
+//                    mediaPlayer?.setOnPreparedListener {
+//                        mediaPlayer?.pause()
+//                    }
+//                } else {
+//                    mediaPlayer?.pause()
+//                }
+//            }
         }
     }
 
@@ -224,7 +253,6 @@ class SongActivity : AppCompatActivity() {
                     }
 
                     if (isPlaying){
-                        Log.d("if문", "진입")
                         sleep(1000) // 1초마다 더하기
                         second++
 //                  work thread 에서는 직접 뷰 렌더링 못함 -> 에러
@@ -245,14 +273,61 @@ class SongActivity : AppCompatActivity() {
         }
     }
 
-    override fun onDestroy() { // 화면이 꺼질때 실행되는 함수
-        player.interrupt()
+    override fun onStart() {
+        super.onStart()
+        Log.d("song_onstart","hi")
+        // start 한번 할 때마다 1씩 증가
+        startCounter += 1
 
-        Log.d("song second", second.toString())
-        editor.putBoolean("isPlaying", song.isPlaying)
-        editor.putInt("second", second)
+
+        // MODE_PRIVATE -> 이 앱에서만 sharedpreference 에 접근할 수 있음
+        val sharedPreferences = getSharedPreferences("song", MODE_PRIVATE)
+        val jsonSong = sharedPreferences.getString("song", null)
+        song = if(jsonSong == null){
+            Song("Antifreeze", "백예린 (Yerin Baek)", 0, 254, false, "music_antifreeze")
+        } else{
+            gson.fromJson(jsonSong, Song::class.java)
+        }
+
+
+        player = Player(song.playTime, song.isPlaying)
+        player.start()
+        setMiniPlayer(song)
+        setPlayerstatus(song.isPlaying)
+
+        if (song.isPlaying)
+            mediaPlayer?.start()
+
+    }
+
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("song_onpause","hi")
+
+        player.isPlaying = false // thread 중지
+
+        if (binding.songPauseIv.isVisible)
+            mediaPlayer?.pause()
+
+        song.second = (binding.songPlayerSb.progress*song.playTime) / 1000
+
+        val sharedPreferences = getSharedPreferences("song", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        // Gson
+        // 객체->json, json->객체로 변환해주는 중간다리 역할
+        val json = gson.toJson(song)
+        editor.putString("song", json)
+
         editor.apply()
+    }
 
+    override fun onDestroy() { // 화면이 꺼질때 실행되는 함수
+        Log.d("song_ondestroy","hi")
         super.onDestroy()
+
+        player.interrupt() // thread 해제
+        mediaPlayer?.release() // 미디어 플레이어가 갖고 있던 리소스 해제
+        mediaPlayer = null // 미디어플레이어 해제
     }
 }

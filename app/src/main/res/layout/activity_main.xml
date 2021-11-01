@@ -54,15 +54,15 @@
                 android:id="@+id/main_miniplayer_title_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="13sp"
-                android:text="라일락"
+                android:textSize="14sp"
+                android:text=""
                 android:textColor="@color/black" />
             <TextView
                 android:id="@+id/main_miniplayer_singer_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:text="아이유 (IU)"/>
+                android:textSize="13sp"
+                android:text=""/>
 
         </LinearLayout>
 
