@@ -10,33 +10,61 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
+import android.content.SharedPreferences
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import android.view.*
 
 
 class SongActivity : AppCompatActivity() {
 
     lateinit var binding : ActivitySongBinding
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var editor: SharedPreferences.Editor
+    private var second: Int = 0
+    private var oneRepeating : Boolean = false
+
+    private val song: Song = Song()
+    private lateinit var player : Player
+    // private val handler = Handler(Looper.getMainLooper())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySongBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (intent.hasExtra("title") && intent.hasExtra("singer")) {
-            binding.songTitleTv.text = intent.getStringExtra("title")
-            binding.songSingerTv.text = intent.getStringExtra("singer")
-        }
+        sharedPreferences = getSharedPreferences("songShared",0)
+        editor = sharedPreferences.edit()
+
+        initSong()
+
+        player = Player(song.playTime, song.isPlaying)
+        player.start()
 
         binding.songDownIb.setOnClickListener { // 화면 내리기
             finish()
         }
 
         binding.songMiniplayerIv.setOnClickListener { // 일시정지 -> 재생
-            setPlayerstatus(false)
+            player.isPlaying = true
+            setPlayerstatus(true)
+            song.isPlaying = true
+
+
+            if (player.isAlive){
+                player.isPlaying = true
+            }
+            else{
+                player = Player(song.playTime, song.isPlaying)
+                player.start()
+            }
+
         }
 
         binding.songPauseIv.setOnClickListener { // 재생 -> 일시정지
-            setPlayerstatus(true)
+            player.isPlaying = false
+            setPlayerstatus(false)
         }
 
         binding.songRepeatOffIv.setOnClickListener { // 전체반복재생 켜기
@@ -52,11 +80,11 @@ class SongActivity : AppCompatActivity() {
         }
 
         binding.songRandomOffIv.setOnClickListener { // 랜덤재생 켜기
-            setRandomstatus(false)
+            setRandomstatus(true)
         }
 
         binding.songRandomOnIv.setOnClickListener { // 랜덤재생 끄기
-            setRandomstatus(true)
+            setRandomstatus(false)
         }
 
         binding.songMyLikeOff.setOnClickListener { // 좋아요 누르기
@@ -77,27 +105,46 @@ class SongActivity : AppCompatActivity() {
 
     }
 
+    private fun initSong(){
+        if (intent.hasExtra("title") && intent.hasExtra("singer") && intent.hasExtra("playTime") && intent.hasExtra("isPlaying")) {
+            song.title = intent.getStringExtra("title")!!
+            song.singer = intent.getStringExtra("singer")!!
+            song.playTime = intent.getIntExtra("playTime", 0)
+            song.isPlaying = intent.getBooleanExtra("isPlaying", false)
+            binding.songEndTimeTv.text = String.format("%02d:%02d", song.playTime/60, song.playTime % 60)
+            binding.songTitleTv.text = song.title
+            binding.songSingerTv.text = song.singer
+            setPlayerstatus(song.isPlaying)
+
+            second = sharedPreferences.getInt("second", 0)
+            Log.d("second",second.toString())
+            binding.songPlayerSb.progress = second * 1000 / song.playTime
+            binding.songProgressTimeTv.text = String.format("%02d:%02d", second/60, second%60)
+        }
+    }
+
     fun setPlayerstatus(isPlaying : Boolean){
         if(isPlaying){
-            binding.songMiniplayerIv.visibility = View.VISIBLE
-            binding.songPauseIv.visibility = View.GONE
-        }
-        else{
             binding.songMiniplayerIv.visibility = View.GONE
             binding.songPauseIv.visibility = View.VISIBLE
+        }
+        else{
+            binding.songMiniplayerIv.visibility = View.VISIBLE
+            binding.songPauseIv.visibility = View.GONE
         }
     }
 
     fun setRandomstatus(isRandom : Boolean) {
         if(isRandom){
-            binding.songRandomOffIv.visibility = View.VISIBLE
-            binding.songRandomOnIv.visibility = View.GONE
-            Toast.makeText(this, "재생목록을 순서대로 재생합니다.", Toast.LENGTH_SHORT).show()
-        }
-        else{
             binding.songRandomOffIv.visibility = View.GONE
             binding.songRandomOnIv.visibility = View.VISIBLE
             Toast.makeText(this, "재생목록을 랜덤으로 재생합니다.", Toast.LENGTH_SHORT).show()
+        }
+        else{
+            binding.songRandomOffIv.visibility = View.VISIBLE
+            binding.songRandomOnIv.visibility = View.GONE
+            Toast.makeText(this, "재생목록을 순서대로 재생합니다.", Toast.LENGTH_SHORT).show()
+
         }
     }
 
@@ -110,6 +157,7 @@ class SongActivity : AppCompatActivity() {
         else if (Repeating == 1){
             binding.songRepeatOnIv.visibility = View.GONE
             binding.songRepeatOn1Iv.visibility = View.VISIBLE
+            oneRepeating = true
             Toast.makeText(this, "현재 음악을 반복합니다.", Toast.LENGTH_SHORT).show()
         }
         else{
@@ -152,5 +200,59 @@ class SongActivity : AppCompatActivity() {
             binding.songUnlikeOff.visibility = View.VISIBLE
             binding.songUnlikeOn.visibility = View.GONE
         }
+    }
+
+    inner class Player(private val playTime:Int, var isPlaying: Boolean) : Thread(){
+
+        override fun run() {
+            try {
+                while(true){
+                    if(second>= playTime){
+                        second = 0
+                        runOnUiThread {
+                            binding.songPlayerSb.progress = second * 1000 / playTime
+                            binding.songProgressTimeTv.text = String.format("%02d:%02d", second/60, second%60)
+                        }
+                        if (!oneRepeating){
+                            song.isPlaying = false
+                            runOnUiThread {
+                                setPlayerstatus(song.isPlaying)
+                            }
+                            player.interrupt()
+                            break
+                        }
+                    }
+
+                    if (isPlaying){
+                        Log.d("if문", "진입")
+                        sleep(1000) // 1초마다 더하기
+                        second++
+//                  work thread 에서는 직접 뷰 렌더링 못함 -> 에러
+//                  방법 1.
+//                  handler.post {
+//                  binding.songProgressTimeTv.text = String.format("%02d:%02d", second/60, second%60)
+//                  }
+//                  방법 2.
+                        runOnUiThread {
+                            binding.songPlayerSb.progress = second * 1000 / playTime
+                            binding.songProgressTimeTv.text = String.format("%02d:%02d", second/60, second%60)
+                        }
+                    }
+                }
+            }catch (e : InterruptedException){
+                Log.d("interrupt", "쓰레드가 종료되었습니다.")
+            }
+        }
+    }
+
+    override fun onDestroy() { // 화면이 꺼질때 실행되는 함수
+        player.interrupt()
+
+        Log.d("song second", second.toString())
+        editor.putBoolean("isPlaying", song.isPlaying)
+        editor.putInt("second", second)
+        editor.apply()
+
+        super.onDestroy()
     }
 }

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import com.example.flo.databinding.FragmentAlbumBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -38,8 +39,10 @@ class AlbumFragment : Fragment() {
             setalbumLike(true)
         }
 
-        val albumAdapter = AlbumViewpagAdapter(this)
+        val albumAdapter = AlbumViewpagerAdapter(this)
         binding.albumContentVp.adapter = albumAdapter
+        val child = binding.albumContentVp.getChildAt(0)
+        (child as? RecyclerView)?.overScrollMode = View.OVER_SCROLL_NEVER
         TabLayoutMediator(binding.albumContentTb, binding.albumContentVp){
                 tab, position -> tab.text = information[position]
         }.attach()

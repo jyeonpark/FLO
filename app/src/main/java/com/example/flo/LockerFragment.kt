@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import com.example.flo.databinding.FragmentLockerBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -24,7 +25,12 @@ class LockerFragment : Fragment() {
         binding = FragmentLockerBinding.inflate(inflater, container, false)
 
         val lockerAdapter =LockerViewpagAdapter(this)
+
         binding.lockContentVp.adapter = lockerAdapter
+
+        var child = binding.lockContentVp.getChildAt(0)
+        (child as? RecyclerView)?.overScrollMode = View.OVER_SCROLL_NEVER
+
         TabLayoutMediator(binding.lockContentTb, binding.lockContentVp){
                 tab, position -> tab.text = information[position]
         }.attach()

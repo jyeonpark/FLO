@@ -10,8 +10,25 @@
         android:id="@+id/main_frm"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/main_player_layout"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/main_player_sb"/>
+
+    <SeekBar
+        android:id="@+id/main_player_sb"
+        android:max="1000"
+        android:progress="0"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:progressTint="@color/flo_blue"
+        android:progressBackgroundTint="@color/song_player_bg"
+        android:background="@null"
+        android:paddingStart="0dp"
+        android:paddingEnd="0dp"
+        android:paddingBottom="0dp"
+        android:paddingTop="0dp"
+        android:thumb="@color/transparent"
+        app:layout_constraintBottom_toTopOf="@id/main_player_layout" />
+
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,17 +36,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@id/main_bnv"
-        android:paddingVertical="5dp"
         android:background="#F9F9F9">
+
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <TextView
                 android:id="@+id/main_miniplayer_title_tv"
@@ -57,18 +76,19 @@
             android:gravity="center_vertical">
 
             <ImageView
+                android:id="@+id/main_previous_btn_iv"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/btn_miniplayer_previous" />
 
             <ImageView
-                android:id="@+id/main_miniplayer_btn"
+                android:id="@+id/main_miniplayer_btn_iv"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/btn_miniplayer_play"/>
 
             <ImageView
-                android:id="@+id/main_pause_btn"
+                android:id="@+id/main_pause_btn_iv"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:visibility="gone"
@@ -76,9 +96,9 @@
 
 
             <ImageView
+                android:id="@+id/main_next_btn_iv"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-
                 android:src="@drawable/btn_miniplayer_next" />
 
 
