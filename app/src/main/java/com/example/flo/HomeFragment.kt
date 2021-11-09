@@ -23,6 +23,7 @@ class HomeFragment(var mContext: MainActivity) : Fragment() {
     var currentPage = 0
     lateinit var thread : Thread
     private var albumDatas = ArrayList<Album>();
+    private var songList = ArrayList<Song>();
     private lateinit var mAlbumClickListener: OnAlbumClickListener
 
     val handler=Handler(Looper.getMainLooper()){
@@ -44,10 +45,19 @@ class HomeFragment(var mContext: MainActivity) : Fragment() {
 //                .commitAllowingStateLoss()
 //        }
 
+        songList.apply {
+            add(Song("라일락", "아이유 (IU)", 0, 244, true, "music_lilac"))
+            add(Song("Flu", "아이유 (IU)", 0, 188, true, "music_flu"))
+            add(Song("Coin", "아이유 (IU)", 0, 223, true, "music_coin"))
+            add(Song("봄 안녕 봄", "아이유 (IU)", 0, 325, true, "music_hispringbye"))
+            add(Song("Celebrity", "아이유 (IU)", 0, 195, true, "music_celebrity"))
+            add(Song("돌림노래 (Feat. DEAN)", "아이유 (IU)", 0, 189, true, "music_troll"))
+        }
+
         // 데이터 리스트 생성
         albumDatas.apply {
             add(Album("Butter", "방탄소년단 (BTS)",R.drawable.img_album_exp ))
-            add(Album("Lilac","아이유 (IU)", R.drawable.img_album_exp2))
+            add(Album("Lilac","아이유 (IU)", R.drawable.img_album_exp2, songList))
             add(Album("지켜줄게", "백예린 (Yerin Baek)", R.drawable.img_album_exp3))
             add(Album("운전만해 (We Ride)", "브레이브걸스", R.drawable.img_album_exp4))
             add(Album("소나기", "빈첸", R.drawable.img_album_exp5))

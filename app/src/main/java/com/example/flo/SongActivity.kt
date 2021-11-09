@@ -12,6 +12,10 @@ import android.view.*
 import android.widget.SeekBar
 import androidx.core.view.isVisible
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+
+
+
 
 
 class SongActivity : AppCompatActivity() {
@@ -27,6 +31,9 @@ class SongActivity : AppCompatActivity() {
     private var mediaPlayer : MediaPlayer? = null
     // Gson
     private var gson: Gson = Gson()
+
+    private var songPosition : Int = 0
+    private var songList = ArrayList<Song>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -230,19 +237,24 @@ class SongActivity : AppCompatActivity() {
             try {
                 while(true){
                     if(song.second>= playTime){
-                        song.second = 0
-                        runOnUiThread {
-                            binding.songPlayerSb.progress = song.second * 1000 / playTime
-                            binding.songProgressTimeTv.text = String.format("%02d:%02d", song.second/60, song.second%60)
-                        }
-                        if (!oneRepeating){
-                            song.isPlaying = false
+                        if (oneRepeating) {
+                            song.second = 0
                             runOnUiThread {
-                                setPlayerstatus(song.isPlaying)
+                                binding.songPlayerSb.progress = song.second * 1000 / playTime
+                                binding.songProgressTimeTv.text =
+                                    String.format("%02d:%02d", song.second / 60, song.second % 60)
                             }
-                            player.interrupt()
-                            break
                         }
+//                        else {
+//                            song = songList[songPosition % songList.size]
+//                            player.interrupt()
+//                            mediaPlayer?.release()
+//                            mediaPlayer = null
+//                            runOnUiThread {
+//                                initSong()
+//                            }
+//                            break
+//                        }
                     }
 
                     if (isPlaying){
@@ -275,12 +287,14 @@ class SongActivity : AppCompatActivity() {
         // MODE_PRIVATE -> 이 앱에서만 sharedpreference 에 접근할 수 있음
         val sharedPreferences = getSharedPreferences("song", MODE_PRIVATE)
         val jsonSong = sharedPreferences.getString("song", null)
+        val jsonSongList = sharedPreferences.getString("songList", null)
+
+        songPosition = sharedPreferences.getInt("songPosition", 0)
         song = if(jsonSong == null){
             Song("Antifreeze", "백예린 (Yerin Baek)", 0, 254, false, "music_antifreeze")
         } else{
             gson.fromJson(jsonSong, Song::class.java)
         }
-
 
         player = Player(song.playTime, song.isPlaying)
         player.start()
