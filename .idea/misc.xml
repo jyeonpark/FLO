@@ -22,7 +22,7 @@
         <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/layout/activity_splash.xml" value="0.1" />
         <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/layout/fragment_album.xml" value="0.12" />
         <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/layout/fragment_banner.xml" value="0.15495495495495495" />
-        <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/layout/fragment_detail.xml" value="0.24484181568088034" />
+        <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/layout/fragment_detail.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/layout/fragment_following.xml" value="0.15495495495495495" />
         <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/layout/fragment_home.xml" value="0.15391498881431767" />
         <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/layout/fragment_ipodmusic.xml" value="0.15495495495495495" />
@@ -30,13 +30,15 @@
         <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/layout/fragment_listenmuch.xml" value="0.22" />
         <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/layout/fragment_locker.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/layout/fragment_look.xml" value="0.16666666666666666" />
-        <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/layout/fragment_mylist.xml" value="0.22" />
+        <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/layout/fragment_mylist.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/layout/fragment_recentlisten.xml" value="0.2680047225501771" />
         <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/layout/fragment_recommend.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/layout/fragment_recommend2.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/layout/fragment_song.xml" value="0.14666666666666667" />
-        <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/layout/fragment_stored.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/layout/fragment_stored.xml" value="0.22" />
         <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/layout/fragment_video.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/layout/item_album.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/layout/item_stored.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/layout/song_toast_custom.xml" value="0.11944444444444445" />
         <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/menu/bottom_nav_menu.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/qkrwl/AndroidStudioProjects/FLO/app/src/main/res/mipmap-anydpi-v26/flo_icon.xml" value="0.12314814814814815" />

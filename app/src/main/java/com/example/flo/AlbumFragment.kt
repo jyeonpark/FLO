@@ -10,10 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.flo.databinding.FragmentAlbumBinding
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.gson.Gson
 
 class AlbumFragment : Fragment() {
 
     lateinit var binding: FragmentAlbumBinding
+    private var gson: Gson = Gson()
 
     val information = arrayListOf("수룩곡", "상세정보", "영상")
 
@@ -25,9 +27,15 @@ class AlbumFragment : Fragment() {
     ): View? {
         binding = FragmentAlbumBinding.inflate(inflater, container, false)
 
+        // Home 에서 넘어온 데이터 받아오기
+        val albumData = arguments?.getString("album")
+        val album = gson.fromJson(albumData, Album::class.java)
+        // Home 에서 넘어온 데이터를 반영
+        setInit(album)
+
         binding.albumBackIv.setOnClickListener {
             (context as MainActivity).supportFragmentManager.beginTransaction()
-                .replace(R.id.main_frm, HomeFragment())
+                .replace(R.id.main_frm, HomeFragment(MainActivity()))
                 .commitAllowingStateLoss()
         }
 
@@ -50,6 +58,11 @@ class AlbumFragment : Fragment() {
         return binding.root
     }
 
+    private fun setInit(album: Album) {
+        binding.albumAlbumIv.setImageResource(album.coverImg!!)
+        binding.albumMusicTitleTv.text = album.title.toString()
+        binding.albumMusicSingerTv.text = album.singer.toString()
+    }
 
 
     fun setalbumLike(like: Boolean){

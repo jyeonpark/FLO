@@ -8,17 +8,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.flo.databinding.FragmentHomeBinding
+import com.google.gson.Gson
 import java.util.*
+import kotlin.collections.ArrayList
 
 
-class HomeFragment : Fragment() {
+class HomeFragment(var mContext: MainActivity) : Fragment() {
     lateinit var binding: FragmentHomeBinding
     var currentPage = 0
     lateinit var thread : Thread
+    private var albumDatas = ArrayList<Album>();
+    private lateinit var mAlbumClickListener: OnAlbumClickListener
 
     val handler=Handler(Looper.getMainLooper()){
         setPage()
@@ -31,12 +36,45 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+        mAlbumClickListener = mContext
 
-        binding.homeTodayReleaseAlbum01Iv.setOnClickListener {
-            (context as MainActivity).supportFragmentManager.beginTransaction()
-                .replace(R.id.main_frm, AlbumFragment())
-                .commitAllowingStateLoss()
+//        binding.homeTodayReleaseAlbum01Iv.setOnClickListener {
+//            (context as MainActivity).supportFragmentManager.beginTransaction()
+//                .replace(R.id.main_frm, AlbumFragment())
+//                .commitAllowingStateLoss()
+//        }
+
+        // 데이터 리스트 생성
+        albumDatas.apply {
+            add(Album("Butter", "방탄소년단 (BTS)",R.drawable.img_album_exp ))
+            add(Album("Lilac","아이유 (IU)", R.drawable.img_album_exp2))
+            add(Album("지켜줄게", "백예린 (Yerin Baek)", R.drawable.img_album_exp3))
+            add(Album("운전만해 (We Ride)", "브레이브걸스", R.drawable.img_album_exp4))
+            add(Album("소나기", "빈첸", R.drawable.img_album_exp5))
+            add(Album("초대장", "오마이걸 (OH MY GIRL)", R.drawable.img_album_exp6))
         }
+
+        // 더미데이터랑 Adapter 연결
+        val albumRVAdapter = AlbumRVAdapter(albumDatas)
+        // 리사이클러뷰에 어댑터를 연결
+        binding.homeTodayMusicAlbumRecyclerview.adapter = albumRVAdapter
+
+        albumRVAdapter.setMyItemClickListener(object : AlbumRVAdapter.MyItemClickListener{
+
+            override fun onItemClick(album: Album) {
+                changeAlbumFragment(album)
+            }
+
+            // MainActivity 의 onAlbumClick 함수를 콜백으로 실행하기
+            override fun onPlayAlbum(album: Album) {
+                mAlbumClickListener.onAlbumClick(album)
+            }
+
+        })
+
+        // 레이아웃 매니저 설정
+        binding.homeTodayMusicAlbumRecyclerview.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
 
         val recommendAdapter = RecommendViewpagerAdapter(this)
         recommendAdapter.addFragment(RecommendFragment())
@@ -63,6 +101,18 @@ class HomeFragment : Fragment() {
         thread.start()
 
         return binding.root
+    }
+
+    private fun changeAlbumFragment(album: Album) {
+        (context as MainActivity).supportFragmentManager.beginTransaction()
+            .replace(R.id.main_frm, AlbumFragment().apply {
+                arguments = Bundle().apply {
+                    val gson = Gson()
+                    val albumJson = gson.toJson(album)
+                    putString("album", albumJson)
+                }
+            })
+            .commitAllowingStateLoss()
     }
 
     //페이지 변경하기

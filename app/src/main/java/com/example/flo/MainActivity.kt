@@ -14,7 +14,7 @@ import com.google.gson.Gson
 import java.util.*
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnAlbumClickListener {
 
     lateinit var binding: ActivityMainBinding
     private lateinit var player : Player
@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.homeFragment -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_frm, HomeFragment())
+                        .replace(R.id.main_frm, HomeFragment(this))
                         .commitAllowingStateLoss()
                     return@setOnItemSelectedListener true
                 }
@@ -147,7 +147,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initNavigation() {
-        supportFragmentManager.beginTransaction().replace(R.id.main_frm, HomeFragment())
+        supportFragmentManager.beginTransaction().replace(R.id.main_frm, HomeFragment(this))
             .commitAllowingStateLoss()
 
     }
@@ -181,6 +181,11 @@ class MainActivity : AppCompatActivity() {
                 Log.d("interrupt", "쓰레드가 종료되었습니다.")
             }
         }
+    }
+
+    // interface 구현
+    override fun onAlbumClick(album: Album) {
+        Log.d("콜백","onAlbumClick")
     }
 
     // 액티비티가 사용자에게 보여지기 직전에 호출된다.

@@ -19,4 +19,10 @@ class SplashActivity : AppCompatActivity() {
             startActivity(intent)
         }, 2000) // 1초가 1000mills
     }
+
+    override fun onPause() {
+        super.onPause()
+        finish()
+    }
 }
+
