@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.View.VISIBLE
+import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.example.flo.databinding.ActivityMainBinding
@@ -17,14 +18,11 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
     private lateinit var player : Player
-    var second: Int = 0
+
     private lateinit var song: Song
     // 미디어 플레이어
     private var mediaPlayer : MediaPlayer? = null
     private var gson: Gson = Gson()
-
-    var startCounter : Int = 0 // 0 이면 oncreate->onstart , 0보다 크면 바로 onstart 로 온 것
-    var pauseCounter : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -33,12 +31,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         Log.d("oncreate","hi")
-        startCounter = 0
-//        song = Song("Antifreeze", "백예린 (Yerin Baek)", 0, 254, false, "music_antifreeze")
-//        setMiniPlayer(song)
-//        player = Player(song.playTime, song.isPlaying)
-//        player.start()
-
 
         binding.mainMiniplayerBtnIv.setOnClickListener { // 재생 thread 실행
             setPlayerstatus(true)
@@ -55,7 +47,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.mainPauseBtnIv.setOnClickListener { // 일시정지
-            pauseCounter += 1
             setPlayerstatus(false)
             mediaPlayer?.pause()
             Log.d("playing", "정지")
@@ -110,6 +101,21 @@ class MainActivity : AppCompatActivity() {
 
             startActivity(intent)
         }
+
+        binding.mainPlayerSb.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {}
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                Log.d("seekbar","2")
+                song.second = seekBar!!.progress * song.playTime / 1000
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                Log.d("seekbar","3")
+                song.second = seekBar!!.progress * song.playTime / 1000
+                mediaPlayer?.seekTo(song.second * 1000)
+            }
+        })
     }
 
     private fun setMiniPlayer(song: Song) {
@@ -120,8 +126,7 @@ class MainActivity : AppCompatActivity() {
 
         val music = resources.getIdentifier(song.music, "raw", this.packageName)
         mediaPlayer = MediaPlayer.create(this,music)
-        second = song.second
-        mediaPlayer?.seekTo(second * 1000)
+        mediaPlayer?.seekTo(song.second * 1000)
 
     }
 
@@ -131,30 +136,12 @@ class MainActivity : AppCompatActivity() {
             binding.mainPauseBtnIv.visibility = View.VISIBLE
             player.isPlaying = true
             song.isPlaying = true
-//            if (startCounter > 1) {
-//                mediaPlayer?.setOnPreparedListener {
-//                    mediaPlayer?.start()
-//                }
-//            }
-//            else {
-//                mediaPlayer?.start()
-//            }
-
         }
         else{
             binding.mainMiniplayerBtnIv.visibility = View.VISIBLE
             binding.mainPauseBtnIv.visibility = View.GONE
             song.isPlaying = false
             player.isPlaying = false
-//            if (pauseCounter != 0) {
-//                if (startCounter > 1) {
-//                    mediaPlayer?.setOnPreparedListener {
-//                        mediaPlayer?.pause()
-//                    }
-//                } else {
-//                    mediaPlayer?.pause()
-//                }
-//            }
         }
 
     }
@@ -170,11 +157,11 @@ class MainActivity : AppCompatActivity() {
         override fun run() {
             try {
                 while(true){
-                    if(second>= playTime){
-                        second = 0
+                    if(song.second>= playTime){
+                        song.second = 0
                         song.isPlaying = false
                         runOnUiThread {
-                            binding.mainPlayerSb.progress = second * 1000 / playTime
+                            binding.mainPlayerSb.progress = song.second * 1000 / playTime
                             setPlayerstatus(song.isPlaying)
                         }
                         player.interrupt();
@@ -183,10 +170,10 @@ class MainActivity : AppCompatActivity() {
 
                     if (isPlaying){
                         sleep(1000) // 1초마다 더하기
-                        second++
+                        song.second++
 
                         runOnUiThread {
-                            binding.mainPlayerSb.progress = second * 1000 / playTime
+                            binding.mainPlayerSb.progress = song.second * 1000 / playTime
                         }
                     }
                 }
@@ -201,9 +188,6 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         Log.d("onstart","hi")
-
-        // start 한번 할 때마다 1씩 증가
-        startCounter += 1
 
         // MODE_PRIVATE -> 이 앱에서만 sharedpreference 에 접근할 수 있음
         val sharedPreferences = getSharedPreferences("song", MODE_PRIVATE)

@@ -9,6 +9,7 @@ import android.content.DialogInterface
 import android.media.MediaPlayer
 import android.util.Log
 import android.view.*
+import android.widget.SeekBar
 import androidx.core.view.isVisible
 import com.google.gson.Gson
 
@@ -22,10 +23,6 @@ class SongActivity : AppCompatActivity() {
     private var song: Song = Song()
     private lateinit var player : Player
 
-    var second : Int = 0
-    var startCounter : Int = 0 // 0 이면 oncreate->onstart , 0보다 크면 바로 onstart 로 온 것
-    var pauseCounter : Int = 0
-
     // 미디어 플레이어
     private var mediaPlayer : MediaPlayer? = null
     // Gson
@@ -37,9 +34,6 @@ class SongActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initSong()
-//
-//        player = Player(song.playTime, song.isPlaying)
-//        player.start()
 
         binding.songDownIb.setOnClickListener { // 화면 내리기
             finish()
@@ -55,16 +49,32 @@ class SongActivity : AppCompatActivity() {
                 player = Player(song.playTime, song.isPlaying)
                 player.start()
             }
-
             mediaPlayer?.start()
-
         }
 
         binding.songPauseIv.setOnClickListener { // 재생 -> 일시정지
-            pauseCounter += 1
             setPlayerstatus(false)
             mediaPlayer?.pause()
         }
+
+        binding.songPlayerSb.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+//                Log.d("seekbar","1")
+//                binding.songProgressTimeTv.text = String.format("%02d:%02d", song.playTime/60, song.playTime % 60)
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                Log.d("seekbar","2")
+                song.second = seekBar!!.progress * song.playTime / 1000
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                Log.d("seekbar","3")
+                song.second = seekBar!!.progress * song.playTime / 1000
+                mediaPlayer?.seekTo(song.second * 1000)
+                binding.songProgressTimeTv.text = String.format("%02d:%02d", song.playTime/60, song.playTime % 60)
+            }
+        })
 
         binding.songRepeatOffIv.setOnClickListener { // 전체반복재생 켜기
             setRepeatstatus(0)
@@ -126,8 +136,7 @@ class SongActivity : AppCompatActivity() {
 
         val music = resources.getIdentifier(song.music, "raw", this.packageName)
         mediaPlayer = MediaPlayer.create(this, music)
-        second = song.second
-        mediaPlayer?.seekTo(second * 1000)
+        mediaPlayer?.seekTo(song.second * 1000)
 
     }
 
@@ -137,29 +146,13 @@ class SongActivity : AppCompatActivity() {
             binding.songPauseIv.visibility = View.VISIBLE
             player.isPlaying = true
             song.isPlaying = true
-//            if (startCounter > 1) {
-//                mediaPlayer?.setOnPreparedListener {
-//                    mediaPlayer?.start()
-//                }
-//            }
-//            else {
-//                mediaPlayer?.start()
-//            }
+
         }
         else{
             binding.songMiniplayerIv.visibility = View.VISIBLE
             binding.songPauseIv.visibility = View.GONE
             player.isPlaying = false
             song.isPlaying = false
-//            if (pauseCounter != 0) {
-//                if (startCounter > 1) {
-//                    mediaPlayer?.setOnPreparedListener {
-//                        mediaPlayer?.pause()
-//                    }
-//                } else {
-//                    mediaPlayer?.pause()
-//                }
-//            }
         }
     }
 
@@ -236,11 +229,11 @@ class SongActivity : AppCompatActivity() {
         override fun run() {
             try {
                 while(true){
-                    if(second>= playTime){
-                        second = 0
+                    if(song.second>= playTime){
+                        song.second = 0
                         runOnUiThread {
-                            binding.songPlayerSb.progress = second * 1000 / playTime
-                            binding.songProgressTimeTv.text = String.format("%02d:%02d", second/60, second%60)
+                            binding.songPlayerSb.progress = song.second * 1000 / playTime
+                            binding.songProgressTimeTv.text = String.format("%02d:%02d", song.second/60, song.second%60)
                         }
                         if (!oneRepeating){
                             song.isPlaying = false
@@ -254,7 +247,7 @@ class SongActivity : AppCompatActivity() {
 
                     if (isPlaying){
                         sleep(1000) // 1초마다 더하기
-                        second++
+                        song.second++
 //                  work thread 에서는 직접 뷰 렌더링 못함 -> 에러
 //                  방법 1.
 //                  handler.post {
@@ -262,8 +255,8 @@ class SongActivity : AppCompatActivity() {
 //                  }
 //                  방법 2.
                         runOnUiThread {
-                            binding.songPlayerSb.progress = second * 1000 / playTime
-                            binding.songProgressTimeTv.text = String.format("%02d:%02d", second/60, second%60)
+                            binding.songPlayerSb.progress = song.second * 1000 / playTime
+                            binding.songProgressTimeTv.text = String.format("%02d:%02d", song.second/60, song.second%60)
                         }
                     }
                 }
@@ -277,7 +270,6 @@ class SongActivity : AppCompatActivity() {
         super.onStart()
         Log.d("song_onstart","hi")
         // start 한번 할 때마다 1씩 증가
-        startCounter += 1
 
 
         // MODE_PRIVATE -> 이 앱에서만 sharedpreference 에 접근할 수 있음
