@@ -56,12 +56,12 @@ class HomeFragment(var mContext: MainActivity) : Fragment() {
 
         // 데이터 리스트 생성
         albumDatas.apply {
-            add(Album("Butter", "방탄소년단 (BTS)",R.drawable.img_album_exp ))
-            add(Album("Lilac","아이유 (IU)", R.drawable.img_album_exp2, songList))
-            add(Album("지켜줄게", "백예린 (Yerin Baek)", R.drawable.img_album_exp3))
-            add(Album("운전만해 (We Ride)", "브레이브걸스", R.drawable.img_album_exp4))
-            add(Album("소나기", "빈첸", R.drawable.img_album_exp5))
-            add(Album("초대장", "오마이걸 (OH MY GIRL)", R.drawable.img_album_exp6))
+            add(Album(1,"Butter", "방탄소년단 (BTS)",R.drawable.img_album_exp ))
+            add(Album(2,"Lilac","아이유 (IU)", R.drawable.img_album_exp2))
+            add(Album(3,"지켜줄게", "백예린 (Yerin Baek)", R.drawable.img_album_exp3))
+            add(Album(4,"운전만해 (We Ride)", "브레이브걸스", R.drawable.img_album_exp4))
+            add(Album(5,"소나기", "빈첸", R.drawable.img_album_exp5))
+            add(Album(6,"초대장", "오마이걸 (OH MY GIRL)", R.drawable.img_album_exp6))
         }
 
         // 더미데이터랑 Adapter 연결
