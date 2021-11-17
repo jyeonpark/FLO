@@ -4,11 +4,14 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import com.example.flo.databinding.ActivityMainBinding
+import java.lang.Thread.sleep
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -111,18 +114,20 @@ class MainActivity : AppCompatActivity(), OnAlbumClickListener {
 
         timer.isPlaying = false
         timer.interrupt() // 스레드를 해제함
+        Log.d("thread 해제", "앨범클릭")
         mediaPlayer?.release() // 미디어플레이어가 가지고 있던 리소스를 해방
         mediaPlayer = null // 미디어플레이어 해제
         nowPos = 0
-
 
         songDB = SongDatabase.getInstance(this)!!
         songs.clear()
         songs.addAll(songDB.songDao().getSongsInAlbum(album.id))
         Log.d("album song : ", songs.toString())
 
+
         startTimer()
         setPlayer(songs[nowPos])
+
 
     }
 
@@ -293,8 +298,8 @@ class MainActivity : AppCompatActivity(), OnAlbumClickListener {
         override fun run() {
             try {
                 while (true) {
-                    if (songs.size != 0) {
-                        if (songs[nowPos].second >= playTime) {
+                    if (songs.size != 0 && songs.isNotEmpty()) {
+                        if (isPlaying && songs[nowPos].second >= playTime) {
                             songs[nowPos].second = 0
                             timer.interrupt()
                             mediaPlayer?.release()
@@ -414,12 +419,13 @@ class MainActivity : AppCompatActivity(), OnAlbumClickListener {
         )
 
         songDB.songDao().insert(
-            Song("Flu",
+            Song(
+                "Flu",
                 "아이유 (IU)",
                 0, 188,
                 false,
                 "music_flu",
-                 R.drawable.img_album_exp2,
+                R.drawable.img_album_exp2,
                 false,
                 2
             )

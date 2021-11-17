@@ -279,13 +279,11 @@ class SongActivity : AppCompatActivity() {
         mediaPlayer?.release() // 미디어플레이어가 가지고 있던 리소스를 해방
         mediaPlayer = null // 미디어플레이어 해제
 
-        Log.d("onpause : song second",songs[nowPos].second.toString())
-
-//        songDB = SongDatabase.getInstance(this)!!
-//        songDB.songDao().update(songs[nowPos])
-
         val sharedPreferences = getSharedPreferences("song", MODE_PRIVATE)
         val editor = sharedPreferences.edit()
+
+        songDB = SongDatabase.getInstance(this)!!
+        songDB.songDao().update(songs[nowPos])
 
         editor.putInt("songId", songs[nowPos].id)
         editor.apply()
@@ -445,7 +443,7 @@ class SongActivity : AppCompatActivity() {
             return Toast(context).apply {
 //                setGravity(Gravity.BOTTOM or Gravity.CENTER, 0, 16.toPx())
                 setGravity(Gravity.BOTTOM or Gravity.FILL_HORIZONTAL, 0, 120.toPx())
-                duration = Toast.LENGTH_LONG
+                duration = Toast.LENGTH_SHORT
                 view = toastbinding.root
             }
         }
