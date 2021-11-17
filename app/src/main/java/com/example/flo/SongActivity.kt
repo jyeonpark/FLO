@@ -6,11 +6,16 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.flo.databinding.ActivitySongBinding
 import android.app.AlertDialog
+import android.content.Context
 import android.content.DialogInterface
+import android.content.res.Resources
 import android.media.MediaPlayer
 import android.util.Log
 import android.view.*
 import android.widget.SeekBar
+import androidx.databinding.DataBindingUtil
+import com.example.flo.databinding.ToastCustomBinding
+import kotlinx.android.synthetic.main.toast_custom.view.*
 import java.util.concurrent.TimeUnit
 
 
@@ -180,19 +185,6 @@ class SongActivity : AppCompatActivity() {
             Toast.makeText(this, "반복을 사용하지 않습니다.", Toast.LENGTH_SHORT).show()
         }
     }
-//
-//    fun setLikestatus(like : Boolean){
-//        if(like){
-//            binding.songMyLikeOff.visibility = View.VISIBLE
-//            binding.songMyLikeOn.visibility = View.GONE
-//            Toast.makeText(this, "좋아요 한 곡에 담겼습니다.", Toast.LENGTH_SHORT).show()
-//        }
-//        else{
-//            binding.songMyLikeOff.visibility = View.GONE
-//            binding.songMyLikeOn.visibility = View.VISIBLE
-//            Toast.makeText(this, "좋아요 한 곡이 취소되었습니다.", Toast.LENGTH_SHORT).show()
-//        }
-//    }
 
     fun setUnlikestatus(unlike: Boolean) {
         if (unlike) {
@@ -431,9 +423,34 @@ class SongActivity : AppCompatActivity() {
 
         if (isLike) {
             binding.songMyLikeOn.setImageResource(R.drawable.ic_my_like_off)
+            Log.d("좋아요 취소","클릭")
+            ToastCustom.createToast(context = this, "좋아요 한 곡이 취소되었습니다.")?.show()
+
         } else {
             binding.songMyLikeOn.setImageResource(R.drawable.ic_my_like_on)
+            Log.d("좋아요","클릭")
+            ToastCustom.createToast(context = this, "좋아요 한 곡에 담겼습니다.")?.show()
         }
+    }
+
+    object ToastCustom {
+
+        fun createToast(context: Context, message: String): Toast? {
+            val toastinflater = LayoutInflater.from(context)
+            val toastbinding: ToastCustomBinding =
+                DataBindingUtil.inflate(toastinflater, R.layout.toast_custom, null, false)
+
+            toastbinding.toastTextTv.text = message
+
+            return Toast(context).apply {
+//                setGravity(Gravity.BOTTOM or Gravity.CENTER, 0, 16.toPx())
+                setGravity(Gravity.BOTTOM or Gravity.FILL_HORIZONTAL, 0, 120.toPx())
+                duration = Toast.LENGTH_LONG
+                view = toastbinding.root
+            }
+        }
+
+        private fun Int.toPx(): Int = (this * Resources.getSystem().displayMetrics.density).toInt()
     }
 
     private fun setPlayerStatus(isPlaying: Boolean) {

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:background="@color/flo_blue">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bottomsheet_play_cl"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp">
+
+        <ImageView
+            android:id="@+id/bottomsheet_play_iv"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/btn_editbar_play"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:backgroundTint="@color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="듣기"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/bottomsheet_play_iv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bottomsheet_addlist_cl"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:id="@+id/bottomsheet_addlist_iv"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/btn_editbar_addplaylist"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:backgroundTint="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="재생목록"
+                android:textColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/bottomsheet_addlist_iv"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bottomsheet_mylist_cl"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:id="@+id/bottomsheet_mylist_iv"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/btn_editbar_mylist"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:backgroundTint="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="내 리스트"
+                android:textColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/bottomsheet_mylist_iv"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bottomsheet_unlike_cl"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:id="@+id/bottomsheet_unlike_iv"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/btn_editbar_delete"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:backgroundTint="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="싫어요"
+                android:textColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/bottomsheet_unlike_iv"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </GridLayout>
+
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:paddingBottom="10dp">-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/bottomsheet_play_iv"-->
+<!--            android:layout_width="30dp"-->
+<!--            android:layout_height="30dp"-->
+<!--            android:background="@drawable/btn_editbar_play"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            android:backgroundTint="@color/white"-->
+<!--            android:layout_marginStart="40dp"-->
+<!--            android:layout_marginTop="10dp"/>-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="듣기"-->
+<!--            android:textColor="@color/white"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/bottomsheet_play_iv"-->
+<!--            app:layout_constraintStart_toStartOf="@id/bottomsheet_play_iv"-->
+<!--            app:layout_constraintEnd_toEndOf="@id/bottomsheet_play_iv" />-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/bottomsheet_addplaylist_iv"-->
+<!--            android:layout_width="30dp"-->
+<!--            android:layout_height="30dp"-->
+<!--            android:background="@drawable/btn_editbar_addplaylist"-->
+<!--            app:layout_constraintStart_toEndOf="@id/bottomsheet_play_iv"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            android:backgroundTint="@color/white"-->
+<!--            android:layout_marginStart="50dp"-->
+<!--            android:layout_marginTop="10dp"/>-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="재생목록"-->
+<!--            android:textColor="@color/white"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/bottomsheet_addplaylist_iv"-->
+<!--            app:layout_constraintStart_toStartOf="@id/bottomsheet_addplaylist_iv"-->
+<!--            app:layout_constraintEnd_toEndOf="@id/bottomsheet_addplaylist_iv" />-->
+
+
+<!--        <ImageView-->
+<!--            android:id="@+id/bottomsheet_mylist_iv"-->
+<!--            android:layout_width="30dp"-->
+<!--            android:layout_height="30dp"-->
+<!--            android:background="@drawable/btn_editbar_mylist"-->
+<!--            app:layout_constraintStart_toEndOf="@id/bottomsheet_addplaylist_iv"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            android:backgroundTint="@color/white"-->
+<!--            android:layout_marginStart="50dp"-->
+<!--            android:layout_marginTop="10dp"/>-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="재생목록"-->
+<!--            android:textColor="@color/white"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/bottomsheet_addplaylist_iv"-->
+<!--            app:layout_constraintStart_toStartOf="@id/bottomsheet_addplaylist_iv"-->
+<!--            app:layout_constraintEnd_toEndOf="@id/bottomsheet_addplaylist_iv"/>-->
+
+
+
+
+</LinearLayout>
