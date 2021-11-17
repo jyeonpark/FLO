@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity(), OnAlbumClickListener {
         Log.d("oncreate", "main")
 
         initNavigation()
+        inputDummyAlbums()
         inputDummySongs()
 
 
@@ -107,33 +108,24 @@ class MainActivity : AppCompatActivity(), OnAlbumClickListener {
 
     // interface 구현
     override fun onAlbumClick(album: Album) {
-//        songList = album.songs!!
-//        song = songList[songPosition]
-//
-//        mediaPlayer?.release() // 미디어 플레이어가 갖고 있던 리소스 해제
-//        mediaPlayer = null // 미디어플레이어 해제
-//
-//        player!!.isPlaying = true
-//        song.isPlaying = true
-//        setMiniPlayer(song)
-//        setPlayerstatus(song.isPlaying)
-//
-//        if (song.isPlaying)
-//            mediaPlayer?.start()
+
+        timer.isPlaying = false
+        timer.interrupt() // 스레드를 해제함
+        mediaPlayer?.release() // 미디어플레이어가 가지고 있던 리소스를 해방
+        mediaPlayer = null // 미디어플레이어 해제
+        nowPos = 0
+
+
+        songDB = SongDatabase.getInstance(this)!!
+        songs.clear()
+        songs.addAll(songDB.songDao().getSongsInAlbum(album.id))
+        Log.d("album song : ", songs.toString())
+
+        startTimer()
+        setPlayer(songs[nowPos])
+
     }
-//
-//    private fun initSong() {
-//
-////        player = null
-////        player = Player(song.isPlaying)
-////        player?.start()
-////        player!!.isPlaying = song.isPlaying
-//        setMiniPlayer(song)
-//        setPlayerstatus(song.isPlaying)
-//
-//        if (song.isPlaying)
-//            mediaPlayer?.start()
-//    }
+
 
     // 액티비티가 사용자에게 보여지기 직전에 호출된다.
     // onResume() 는 액티비티가 시작되고 사용자와 상호작용하기 직전에 호출된다.
@@ -141,19 +133,10 @@ class MainActivity : AppCompatActivity(), OnAlbumClickListener {
         super.onStart()
         Log.d("onstart", "main")
 
-//        initPlayList()
-//        initSong()
-//        initClickListener()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d("onResume", "main")
         initPlayList()
         initSong()
         initClickListener()
     }
-
 
     override fun onPause() {
         super.onPause()
@@ -310,24 +293,26 @@ class MainActivity : AppCompatActivity(), OnAlbumClickListener {
         override fun run() {
             try {
                 while (true) {
-                    if (songs[nowPos].second >= playTime) {
-                        songs[nowPos].second = 0
-                        timer.interrupt()
-                        mediaPlayer?.release()
-                        mediaPlayer = null
-                        runOnUiThread {
-                            moveSong(+1)
+                    if (songs.size != 0) {
+                        if (songs[nowPos].second >= playTime) {
+                            songs[nowPos].second = 0
+                            timer.interrupt()
+                            mediaPlayer?.release()
+                            mediaPlayer = null
+                            runOnUiThread {
+                                moveSong(+1)
+                            }
+                            break
                         }
-                        break
-                    }
 
-                    if (isPlaying) {
-                        sleep(1000)
-                        songs[nowPos].second++
+                        if (isPlaying) {
+                            sleep(1000)
+                            songs[nowPos].second++
 
-                        runOnUiThread {
-                            binding.mainPlayerSb.progress =
-                                (songs[nowPos].second * 1000 / playTime).toInt()
+                            runOnUiThread {
+                                binding.mainPlayerSb.progress =
+                                    (songs[nowPos].second * 1000 / playTime).toInt()
+                            }
                         }
                     }
                 }
@@ -335,6 +320,57 @@ class MainActivity : AppCompatActivity(), OnAlbumClickListener {
                 Log.d("SONG", "쓰레드가 죽었습니다. ${e.message}")
             }
         }
+    }
+
+    //ROOM_DB
+    private fun inputDummyAlbums() {
+        val songDB = SongDatabase.getInstance(this)!!
+        val albums = songDB.albumDao().getAlbums()
+
+        if (albums.isNotEmpty()) return
+
+        songDB.albumDao().insert(
+            Album(
+                1,
+                "BUTTER", "방탄소년단 (BTS)", R.drawable.img_album_exp
+            )
+        )
+
+        songDB.albumDao().insert(
+            Album(
+                2,
+                "IU 5th Album 'LILAC'", "아이유 (IU)", R.drawable.img_album_exp2
+            )
+        )
+
+        songDB.albumDao().insert(
+            Album(
+                3,
+                "Our Love is greate", "백예린 (Yerin Baek)", R.drawable.img_album_exp3
+            )
+        )
+
+        songDB.albumDao().insert(
+            Album(
+                4,
+                "We Ride", "브레이브걸스", R.drawable.img_album_exp4
+            )
+        )
+
+        songDB.albumDao().insert(
+            Album(
+                5,
+                "FLYING HIGH WITH U", "빈첸", R.drawable.img_album_exp5
+            )
+        )
+
+        songDB.albumDao().insert(
+            Album(
+                6,
+                "DEAR OHMYGIRL", "오마이걸 (OH MY GIRL)", R.drawable.img_album_exp6
+            )
+        )
+
     }
 
     private fun inputDummySongs() {
@@ -359,7 +395,8 @@ class MainActivity : AppCompatActivity(), OnAlbumClickListener {
                 false,
                 "music_butter",
                 R.drawable.img_album_exp,
-                false
+                false,
+                1
             )
         )
         songDB.songDao().insert(
@@ -371,7 +408,72 @@ class MainActivity : AppCompatActivity(), OnAlbumClickListener {
                 false,
                 "music_lilac",
                 R.drawable.img_album_exp2,
-                false
+                false,
+                2
+            )
+        )
+
+        songDB.songDao().insert(
+            Song("Flu",
+                "아이유 (IU)",
+                0, 188,
+                false,
+                "music_flu",
+                 R.drawable.img_album_exp2,
+                false,
+                2
+            )
+        )
+        songDB.songDao().insert(
+            Song(
+                "Coin",
+                "아이유 (IU)",
+                0,
+                223,
+                false,
+                "music_coin",
+                R.drawable.img_album_exp2,
+                false,
+                2
+            )
+        )
+        songDB.songDao().insert(
+            Song(
+                "봄 안녕 봄",
+                "아이유 (IU)",
+                0,
+                325,
+                false,
+                "music_hispringbye",
+                R.drawable.img_album_exp2,
+                false,
+                2
+            )
+        )
+        songDB.songDao().insert(
+            Song(
+                "Celebrity",
+                "아이유 (IU)",
+                0,
+                195,
+                true,
+                "music_celebrity",
+                R.drawable.img_album_exp2,
+                false,
+                2
+            )
+        )
+        songDB.songDao().insert(
+            Song(
+                "돌림노래 (Feat. DEAN)",
+                "아이유 (IU)",
+                0,
+                189,
+                true,
+                "music_troll",
+                R.drawable.img_album_exp2,
+                false,
+                2
             )
         )
 
@@ -384,7 +486,8 @@ class MainActivity : AppCompatActivity(), OnAlbumClickListener {
                 false,
                 "music_seeyouagain",
                 R.drawable.img_album_exp3,
-                false
+                false,
+                3
             )
         )
 
@@ -397,7 +500,8 @@ class MainActivity : AppCompatActivity(), OnAlbumClickListener {
                 false,
                 "music_weride",
                 R.drawable.img_album_exp4,
-                false
+                false,
+                4
             )
         )
 
@@ -410,7 +514,8 @@ class MainActivity : AppCompatActivity(), OnAlbumClickListener {
                 false,
                 "music_shower",
                 R.drawable.img_album_exp5,
-                false
+                false,
+                5
             )
         )
 
@@ -423,7 +528,8 @@ class MainActivity : AppCompatActivity(), OnAlbumClickListener {
                 false,
                 "music_whocomeswhoknows",
                 R.drawable.img_album_exp6,
-                false
+                false,
+                6
             )
         )
 

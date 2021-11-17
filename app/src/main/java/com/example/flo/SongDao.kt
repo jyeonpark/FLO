@@ -32,4 +32,5 @@ interface SongDao {
     @Query("UPDATE SongTable SET isLike= :isLike")
     fun updateIsLikeAll(isLike: Boolean)
 
+
 }
