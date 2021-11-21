@@ -80,8 +80,8 @@ class SongActivity : AppCompatActivity() {
                 mediaPlayer?.seekTo(songs[nowPos].second * 1000)
                 binding.songProgressTimeTv.text = String.format(
                     "%02d:%02d",
-                    songs[nowPos].playTime / 60,
-                    songs[nowPos].playTime % 60
+                    songs[nowPos].second / 60,
+                    songs[nowPos].second % 60
                 )
             }
         })
@@ -207,53 +207,6 @@ class SongActivity : AppCompatActivity() {
         }
     }
 
-//    inner class Player(private val playTime:Int, var isPlaying: Boolean) : Thread(){
-//
-//        override fun run() {
-//            try {
-//                while(true){
-//                    if(song.second>= playTime){
-//                        if (oneRepeating) {
-//                            song.second = 0
-//                            runOnUiThread {
-//                                binding.songPlayerSb.progress = song.second * 1000 / playTime
-//                                binding.songProgressTimeTv.text =
-//                                    String.format("%02d:%02d", song.second / 60, song.second % 60)
-//                            }
-//                        }
-////                        else {
-////                            song = songList[songPosition % songList.size]
-////                            player.interrupt()
-////                            mediaPlayer?.release()
-////                            mediaPlayer = null
-////                            runOnUiThread {
-////                                initSong()
-////                            }
-////                            break
-////                        }
-//                    }
-//
-//                    if (isPlaying){
-//                        sleep(1000) // 1초마다 더하기
-//                        song.second++
-////                  work thread 에서는 직접 뷰 렌더링 못함 -> 에러
-////                  방법 1.
-////                  handler.post {
-////                  binding.songProgressTimeTv.text = String.format("%02d:%02d", second/60, second%60)
-////                  }
-////                  방법 2.
-//                        runOnUiThread {
-//                            binding.songPlayerSb.progress = song.second * 1000 / playTime
-//                            binding.songProgressTimeTv.text = String.format("%02d:%02d", song.second/60, song.second%60)
-//                        }
-//                    }
-//                }
-//            }catch (e : InterruptedException){
-//                Log.d("interrupt", "쓰레드가 종료되었습니다.")
-//            }
-//        }
-//    }
-
     override fun onStart() {
         super.onStart()
         Log.d("onstart", "song")
@@ -263,7 +216,6 @@ class SongActivity : AppCompatActivity() {
         initClickListener()
 
     }
-
 
     override fun onPause() {
         super.onPause()
@@ -282,9 +234,9 @@ class SongActivity : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("song", MODE_PRIVATE)
         val editor = sharedPreferences.edit()
 
+        Log.d("onpause : song second", songs[nowPos].second.toString())
         songDB = SongDatabase.getInstance(this)!!
         songDB.songDao().update(songs[nowPos])
-
         editor.putInt("songId", songs[nowPos].id)
         editor.apply()
 
@@ -441,7 +393,6 @@ class SongActivity : AppCompatActivity() {
             toastbinding.toastTextTv.text = message
 
             return Toast(context).apply {
-//                setGravity(Gravity.BOTTOM or Gravity.CENTER, 0, 16.toPx())
                 setGravity(Gravity.BOTTOM or Gravity.FILL_HORIZONTAL, 0, 120.toPx())
                 duration = Toast.LENGTH_SHORT
                 view = toastbinding.root
@@ -470,7 +421,6 @@ class SongActivity : AppCompatActivity() {
 
     inner class Timer(private val playTime: Int = 0, var isPlaying: Boolean = false) : Thread() {
 //        private var second: Long = songs[nowPos].second.toLong()
-
         @SuppressLint("SetTextI18n")
         override fun run() {
             try {

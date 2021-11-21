@@ -15,7 +15,6 @@ import java.lang.Thread.sleep
 import java.util.*
 import kotlin.collections.ArrayList
 
-
 class MainActivity : AppCompatActivity(), OnAlbumClickListener {
 
     lateinit var binding: ActivityMainBinding
@@ -159,8 +158,9 @@ class MainActivity : AppCompatActivity(), OnAlbumClickListener {
 
         Log.d("onpause : main second", songs[nowPos].second.toString())
 //
-//        songDB = SongDatabase.getInstance(this)!!
-//        songDB.songDao().update(songs[nowPos])
+        Log.d("onpause : main second", songs[nowPos].second.toString())
+        songDB = SongDatabase.getInstance(this)!!
+        songDB.songDao().update(songs[nowPos])
 
         val sharedPreferences = getSharedPreferences("song", MODE_PRIVATE)
         val editor = sharedPreferences.edit()
@@ -182,6 +182,7 @@ class MainActivity : AppCompatActivity(), OnAlbumClickListener {
 
     private fun initPlayList() {
         songDB = SongDatabase.getInstance(this)!!
+        Log.d("ㅉㅈ",songDB.songDao().getSongs().toString())
         songs.addAll(songDB.songDao().getSongs())
 
     }
@@ -197,9 +198,7 @@ class MainActivity : AppCompatActivity(), OnAlbumClickListener {
         val songId = spf.getInt("songId", 0)
 
         nowPos = getPlayingSongPosition(songId)
-        Log.d("onstart : main second", songs[nowPos].second.toString())
-
-        Log.d("now Song ID", songs[nowPos].id.toString())
+        songs[nowPos].second = songDB.songDao().getSong(songId).second
 
         startTimer()
         setPlayer(songs[nowPos])
