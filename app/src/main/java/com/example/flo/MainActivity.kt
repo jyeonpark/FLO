@@ -147,8 +147,6 @@ class MainActivity : AppCompatActivity(), OnAlbumClickListener {
         Log.d("onPause", "main")
 
         songs[nowPos].second = (songs[nowPos].playTime * binding.mainPlayerSb.progress) / 1000
-//        songs[nowPos].isPlaying = false
-//        setPlayerStatus(false)
         timer.isPlaying = false
 
         timer.interrupt() // 스레드를 해제함
@@ -156,8 +154,6 @@ class MainActivity : AppCompatActivity(), OnAlbumClickListener {
         mediaPlayer?.release() // 미디어플레이어가 가지고 있던 리소스를 해방
         mediaPlayer = null // 미디어플레이어 해제
 
-        Log.d("onpause : main second", songs[nowPos].second.toString())
-//
         Log.d("onpause : main second", songs[nowPos].second.toString())
         songDB = SongDatabase.getInstance(this)!!
         songDB.songDao().update(songs[nowPos])
@@ -174,15 +170,10 @@ class MainActivity : AppCompatActivity(), OnAlbumClickListener {
 
         Log.d("onDestroy", "main")
 
-//        timer.interrupt() // 스레드를 해제함
-//
-//        mediaPlayer?.release() // 미디어플레이어가 가지고 있던 리소스를 해방
-//        mediaPlayer = null // 미디어플레이어 해제
     }
 
     private fun initPlayList() {
         songDB = SongDatabase.getInstance(this)!!
-        Log.d("ㅉㅈ",songDB.songDao().getSongs().toString())
         songs.addAll(songDB.songDao().getSongs())
 
     }
@@ -195,10 +186,11 @@ class MainActivity : AppCompatActivity(), OnAlbumClickListener {
 
     private fun initSong() {
         val spf = getSharedPreferences("song", MODE_PRIVATE)
-        val songId = spf.getInt("songId", 0)
+        val songId = spf.getInt("songId", 1)
 
         nowPos = getPlayingSongPosition(songId)
         songs[nowPos].second = songDB.songDao().getSong(songId).second
+        songs[nowPos].isPlaying = songDB.songDao().getSong(songId).isPlaying
 
         startTimer()
         setPlayer(songs[nowPos])
@@ -540,6 +532,7 @@ class MainActivity : AppCompatActivity(), OnAlbumClickListener {
 
         val _songs = songDB.songDao().getSongs()
         Log.d("DB", _songs.toString())
+
 
     }
 

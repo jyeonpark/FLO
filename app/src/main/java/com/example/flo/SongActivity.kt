@@ -6,16 +6,18 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.flo.databinding.ActivitySongBinding
 import android.app.AlertDialog
-import android.content.Context
 import android.content.DialogInterface
-import android.content.res.Resources
+import android.graphics.Color
+import android.graphics.Point
 import android.media.MediaPlayer
 import android.util.Log
 import android.view.*
 import android.widget.SeekBar
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import com.example.flo.databinding.ToastCustomBinding
-import kotlinx.android.synthetic.main.toast_custom.view.*
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.snackbar.Snackbar.SnackbarLayout
+import kotlinx.android.synthetic.main.song_snackbar_custom.view.*
 import java.util.concurrent.TimeUnit
 
 
@@ -31,6 +33,8 @@ class SongActivity : AppCompatActivity() {
     private var songs = ArrayList<Song>()
     private var nowPos = 0
     private lateinit var songDB: SongDatabase
+
+    private var snackbar : Snackbar? = null
 
 
 //    // Gson
@@ -67,7 +71,7 @@ class SongActivity : AppCompatActivity() {
         binding.songPlayerSb.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
 //                Log.d("seekbar","1")
-           }
+            }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
 //                Log.d("seekbar", "2")
@@ -222,8 +226,6 @@ class SongActivity : AppCompatActivity() {
         Log.d("onPause", "song")
 
         songs[nowPos].second = (songs[nowPos].playTime * binding.songPlayerSb.progress) / 1000
-//        songs[nowPos].isPlaying = false
-//        setPlayerStatus(false)
         timer.isPlaying = false
 
         timer.interrupt() // 스레드를 해제함
@@ -268,11 +270,11 @@ class SongActivity : AppCompatActivity() {
 
     private fun initSong() {
         val spf = getSharedPreferences("song", MODE_PRIVATE)
-        val songId = spf.getInt("songId", 0)
+        val songId = spf.getInt("songId", 1)
 
         nowPos = getPlayingSongPosition(songId)
 
-        Log.d("onstart : song second",songs[nowPos].second.toString())
+        Log.d("onstart : song second", songs[nowPos].second.toString())
 
         Log.d("now Song ID", songs[nowPos].id.toString())
 
@@ -373,33 +375,48 @@ class SongActivity : AppCompatActivity() {
 
         if (isLike) {
             binding.songMyLikeOn.setImageResource(R.drawable.ic_my_like_off)
-            Log.d("좋아요 취소","클릭")
-            ToastCustom.createToast(context = this, "좋아요 한 곡이 취소되었습니다.")?.show()
+            Log.d("좋아요 취소", "클릭")
+//            ToastCustom.createToast(context = this, "좋아요 한 곡이 취소되었습니다.")?.show()
+            createSnackBar(binding.root, "좋아요 한 곡이 취소되었습니다.")
 
         } else {
             binding.songMyLikeOn.setImageResource(R.drawable.ic_my_like_on)
-            Log.d("좋아요","클릭")
-            ToastCustom.createToast(context = this, "좋아요 한 곡에 담겼습니다.")?.show()
+            Log.d("좋아요", "클릭")
+//            ToastCustom.createToast(context = this, "좋아요 한 곡에 담겼습니다.")?.show()
+            createSnackBar(binding.root, "좋아요 한 곡에 담겼습니다.")
         }
     }
 
-    object ToastCustom {
 
-        fun createToast(context: Context, message: String): Toast? {
-            val toastinflater = LayoutInflater.from(context)
-            val toastbinding: ToastCustomBinding =
-                DataBindingUtil.inflate(toastinflater, R.layout.toast_custom, null, false)
+    fun createSnackBar(view: View, message: String) {
 
-            toastbinding.toastTextTv.text = message
+        snackbar = Snackbar.make(view, "", Snackbar.LENGTH_SHORT)
+        val customSnackView: View = layoutInflater.inflate(R.layout.song_snackbar_custom, null)
+        snackbar!!.view.setBackgroundColor(Color.TRANSPARENT)
+        snackbar!!.anchorView = binding.songMiniplayerIv
+        customSnackView.snackbar_tv.text = message
+        val snackbarLayout = snackbar!!.view as SnackbarLayout
+        snackbarLayout.setPadding(20, 0, 20, 0)
 
-            return Toast(context).apply {
-                setGravity(Gravity.BOTTOM or Gravity.FILL_HORIZONTAL, 0, 120.toPx())
-                duration = Toast.LENGTH_SHORT
-                view = toastbinding.root
-            }
+        snackbarLayout.addView(customSnackView, 0)
+        snackbar!!.show()
+
+    }
+
+    /**
+     * On each touch event:
+     * Check is [snackbar] present and displayed
+     * and dismiss it if user touched anywhere outside it's bounds
+     */
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        // 터치하면 snackbar dismiss
+        snackbar?.takeIf { it.isShown }?.run {
+            snackbar?.view?.visibility = View.GONE;
+            dismiss()
+            snackbar = null
         }
 
-        private fun Int.toPx(): Int = (this * Resources.getSystem().displayMetrics.density).toInt()
+        return super.dispatchTouchEvent(ev)
     }
 
     private fun setPlayerStatus(isPlaying: Boolean) {
@@ -420,7 +437,7 @@ class SongActivity : AppCompatActivity() {
     }
 
     inner class Timer(private val playTime: Int = 0, var isPlaying: Boolean = false) : Thread() {
-//        private var second: Long = songs[nowPos].second.toLong()
+        //        private var second: Long = songs[nowPos].second.toLong()
         @SuppressLint("SetTextI18n")
         override fun run() {
             try {

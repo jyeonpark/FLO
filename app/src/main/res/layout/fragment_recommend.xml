@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="430dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/img_default_4_x_1" />
+        android:src="@drawable/img_home_viewpager_default" />
 
     <ImageView
         android:id="@+id/recommend_btn_setting_iv"

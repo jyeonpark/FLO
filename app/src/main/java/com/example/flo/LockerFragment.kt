@@ -1,5 +1,6 @@
 package com.example.flo
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -34,6 +35,10 @@ class LockerFragment : Fragment() {
         TabLayoutMediator(binding.lockContentTb, binding.lockContentVp){
                 tab, position -> tab.text = information[position]
         }.attach()
+
+        binding.lockLoginTv.setOnClickListener {
+            startActivity(Intent(activity, LoginActivity::class.java))
+        }
 
         return binding.root
     }
