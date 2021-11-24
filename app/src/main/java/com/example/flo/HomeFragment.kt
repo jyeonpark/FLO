@@ -10,11 +10,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.flo.databinding.FragmentHomeBinding
 import com.google.gson.Gson
-import java.util.*
 import kotlin.collections.ArrayList
 
 
@@ -26,7 +24,6 @@ class HomeFragment(var mContext: MainActivity) : Fragment() {
     private var albums = ArrayList<Album>()
     private lateinit var songDB: SongDatabase
     private lateinit var mAlbumClickListener: OnAlbumClickListener
-
 
 
     val handler=Handler(Looper.getMainLooper()){
@@ -67,10 +64,11 @@ class HomeFragment(var mContext: MainActivity) : Fragment() {
 
         val recommendAdapter = RecommendViewpagerAdapter(this)
         recommendAdapter.addFragment(RecommendFragment())
-        recommendAdapter.addFragment(RecommendFragment2())
+        recommendAdapter.addFragment(RecommendFragment02())
+        recommendAdapter.addFragment(RecommendFragment03())
         recommendAdapter.addFragment(RecommendFragment())
-        recommendAdapter.addFragment(RecommendFragment2())
-        recommendAdapter.addFragment(RecommendFragment())
+        recommendAdapter.addFragment(RecommendFragment02())
+        recommendAdapter.addFragment(RecommendFragment03())
 
         val viewpager: ViewPager2 = binding.homeRecommendVp
         binding.homeRecommendVp.adapter = recommendAdapter
@@ -106,7 +104,7 @@ class HomeFragment(var mContext: MainActivity) : Fragment() {
 
     //페이지 변경하기
     fun setPage(){
-        if(currentPage == 5)
+        if(currentPage == 6)
             currentPage = 0
         binding.homeRecommendVp.setCurrentItem(currentPage, true)
         currentPage+=1

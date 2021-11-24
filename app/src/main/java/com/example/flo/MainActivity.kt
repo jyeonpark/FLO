@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity(), OnAlbumClickListener {
     lateinit var binding: ActivityMainBinding
 
     private var mediaPlayer: MediaPlayer? = null
-    lateinit var timer: MainActivity.Timer
+    private var timer: MainActivity.Timer? = null
 
     private var songs = ArrayList<Song>()
     private var nowPos = 0
@@ -111,8 +111,10 @@ class MainActivity : AppCompatActivity(), OnAlbumClickListener {
     // interface 구현
     override fun onAlbumClick(album: Album) {
 
-        timer.isPlaying = false
-        timer.interrupt() // 스레드를 해제함
+        if (timer != null) {
+            timer!!.isPlaying = false
+            timer!!.interrupt() // 스레드를 해제함
+        }
         Log.d("thread 해제", "앨범클릭")
         mediaPlayer?.release() // 미디어플레이어가 가지고 있던 리소스를 해방
         mediaPlayer = null // 미디어플레이어 해제
@@ -147,9 +149,9 @@ class MainActivity : AppCompatActivity(), OnAlbumClickListener {
         Log.d("onPause", "main")
 
         songs[nowPos].second = (songs[nowPos].playTime * binding.mainPlayerSb.progress) / 1000
-        timer.isPlaying = false
+        timer!!.isPlaying = false
 
-        timer.interrupt() // 스레드를 해제함
+        timer!!.interrupt() // 스레드를 해제함
 
         mediaPlayer?.release() // 미디어플레이어가 가지고 있던 리소스를 해방
         mediaPlayer = null // 미디어플레이어 해제
@@ -181,7 +183,7 @@ class MainActivity : AppCompatActivity(), OnAlbumClickListener {
 
     private fun startTimer() {
         timer = Timer(songs[nowPos].playTime, songs[nowPos].isPlaying)
-        timer.start()
+        timer!!.start()
     }
 
     private fun initSong() {
@@ -251,7 +253,7 @@ class MainActivity : AppCompatActivity(), OnAlbumClickListener {
 
         songs[nowPos].second = 0
 
-        timer.interrupt()
+        timer!!.interrupt()
         startTimer()
 
         mediaPlayer?.release() // 미디어플레이어가 가지고 있던 리소스를 해방
@@ -266,7 +268,7 @@ class MainActivity : AppCompatActivity(), OnAlbumClickListener {
 
 
     private fun setPlayerStatus(isPlaying: Boolean) {
-        timer.isPlaying = isPlaying
+        timer!!.isPlaying = isPlaying
         songs[nowPos].isPlaying = isPlaying
 
         if (isPlaying) {
@@ -292,7 +294,7 @@ class MainActivity : AppCompatActivity(), OnAlbumClickListener {
                     if (songs.size != 0 && songs.isNotEmpty()) {
                         if (isPlaying && songs[nowPos].second >= playTime) {
                             songs[nowPos].second = 0
-                            timer.interrupt()
+                            timer!!.interrupt()
                             mediaPlayer?.release()
                             mediaPlayer = null
                             runOnUiThread {

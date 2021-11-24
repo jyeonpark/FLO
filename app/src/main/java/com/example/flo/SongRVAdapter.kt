@@ -32,7 +32,7 @@ class SongRVAdapter() :
         holder.bind(songs[position])
 
         // 아이템뷰 : 이미지 클릭시 삭제하기
-        holder.binding.songMoreIv.setOnClickListener {
+        holder.binding.storedMoreIv.setOnClickListener {
             mItemClickListener.onRemoveSong(songs[position].id)
             removeSong(position)
         }

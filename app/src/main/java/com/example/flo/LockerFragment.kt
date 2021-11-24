@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.flo.databinding.FragmentLockerBinding
@@ -15,7 +16,7 @@ class LockerFragment : Fragment() {
 
     lateinit var binding: FragmentLockerBinding
 
-    val information = arrayListOf("내 리스트", "♡ 좋아요", "저장한 곡", "많이 들은", "팔로잉", "최근 감상", "iPod 음악")
+    val information = arrayListOf("내 리스트", "♡ 좋아요", "저장앨범", "많이 들은", "팔로잉", "최근 감상", "iPod 음악")
 
 
     override fun onCreateView(
@@ -43,5 +44,59 @@ class LockerFragment : Fragment() {
         return binding.root
     }
 
+    override fun onStart() {
+        super.onStart()
 
+        initView()
+    }
+
+    private fun initView(){
+        val jwt = getJwt() // jwt 를 가져오는 함수
+
+        if (jwt == 0){
+            // 로그인이 안된 상태
+            binding.lockLoginTv.text = "로그인"
+
+            // 사용자 이름을 게스트로 설정
+            binding.lockUsernameTv.text = "Guest"
+
+            binding.lockLoginTv.setOnClickListener {
+                startActivity(Intent(activity, LoginActivity::class.java))
+            }
+        } else{
+            binding.lockLoginTv.text = "로그아웃"
+
+            // 사용자 이름 설정
+            binding.lockUsernameTv.text = getUser(jwt).name
+
+            binding.lockLoginTv.setOnClickListener {
+                // 로그아웃을 시켜주는 함수
+                logout()
+                startActivity(Intent(activity, MainActivity::class.java))
+            }
+        }
+    }
+
+    private fun getUser(jwt: Int): User{
+        val songDB = SongDatabase.getInstance(requireContext())!!
+        val user = songDB.userDao().getUserByJwt(jwt)
+
+        return user!!
+    }
+
+    private fun getJwt(): Int{
+        // fragment 에서 sharedpreference 사용하는 법
+        val spf = activity?.getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
+
+        return spf!!.getInt("jwt", 0)
+    }
+
+    private fun logout(){
+        val spf = activity?.getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
+        val editor = spf!!.edit()
+
+        // jwt 없애주기
+        editor.remove("jwt")
+        editor.apply()
+    }
 }

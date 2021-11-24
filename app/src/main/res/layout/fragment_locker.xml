@@ -24,12 +24,37 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:text="로그인"
-        android:textSize="17sp"
+        android:textSize="14sp"
         android:textColor="@color/flo_blue"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/lock_text_tv"
         app:layout_constraintBottom_toBottomOf="@id/lock_text_tv"/>
+
+    <TextView
+        android:id="@+id/lock_text_02_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="님"
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toStartOf="@id/lock_login_tv"
+        app:layout_constraintTop_toTopOf="@id/lock_login_tv"
+        app:layout_constraintBottom_toBottomOf="@id/lock_login_tv"/>
+
+    <TextView
+        android:id="@+id/lock_username_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Guest"
+        android:textSize="17sp"
+        android:textColor="@color/black"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toStartOf="@id/lock_text_02_tv"
+        app:layout_constraintTop_toTopOf="@id/lock_login_tv"
+        app:layout_constraintBottom_toBottomOf="@id/lock_login_tv"/>
+
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/lock_content_tb"

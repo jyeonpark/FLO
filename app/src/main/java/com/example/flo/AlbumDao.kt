@@ -19,4 +19,16 @@ interface AlbumDao {
 
     @Query("SELECT * FROM AlbumTable WHERE id = :id")
     fun getAlbum(id: Int): Album
+
+    @Insert
+    fun likeAlbum(like: Like)
+
+    @Query("SELECT id FROM LikeTable WHERE userId = :userID AND albumId = :albumID")
+    fun isLikeAlbum(userID: Int, albumID: Int): Int?
+
+    @Query("DELETE FROM LikeTable WHERE userId = :userID AND albumId = :albumID")
+    fun disLikeAlbum(userID: Int, albumID: Int): Int?
+
+    @Query("SELECT AT.* FROM LikeTable as LT LEFT JOIN AlbumTable as AT ON albumId = AT.id WHERE LT.userId = :userId")
+    fun getLikedAlbums(userId: Int): List<Album>
 }
