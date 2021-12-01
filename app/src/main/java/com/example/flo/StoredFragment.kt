@@ -40,19 +40,13 @@ class StoredFragment: Fragment() {
 
         albumlockerRVAdapter.setMyItemClickListener(object : AlbumLockerRVAdapter.MyItemClickListener {
             override fun onRemoveAlbum(albumId: Int) {
-                songDB.albumDao().disLikeAlbum(getJwt(), albumId)
+                songDB.albumDao().disLikeAlbum(getUserIdx(requireContext()), albumId)
             }
         })
 
         binding.storedAlbumRecyclerview.adapter = albumlockerRVAdapter
 
-        albumlockerRVAdapter.addAlbums(songDB.albumDao().getLikedAlbums(getJwt()) as ArrayList)
+        albumlockerRVAdapter.addAlbums(songDB.albumDao().getLikedAlbums(getUserIdx(requireContext())) as ArrayList)
     }
 
-    private fun getJwt(): Int{
-        // fragment 에서 sharedpreference 사용하는 법
-        val spf = activity?.getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
-
-        return spf!!.getInt("jwt", 0)
-    }
 }

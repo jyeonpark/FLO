@@ -130,13 +130,26 @@
         app:layout_constraintStart_toStartOf="@id/login_password_et"
         app:layout_constraintEnd_toEndOf="parent"/>
 
+    <TextView
+        android:id="@+id/login_error_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="에러입니다."
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/login_line_03_view"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:visibility="gone"
+        android:textColor="#F44336"/>
+
     <Button
         android:id="@+id/login_goto_login_btn"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/flo_blue"
         android:backgroundTint="@color/flo_blue"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:text="로그인"
@@ -275,6 +288,17 @@
         app:layout_constraintTop_toBottomOf="@id/login_goto_phone_login_layout"
         app:layout_constraintStart_toEndOf="@id/login_kakao_iv" />
 
+    <ProgressBar
+        android:id="@+id/login_loading_pb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:indeterminateTint="@color/flo_blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"/>
 
 
 

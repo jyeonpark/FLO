@@ -51,14 +51,14 @@ class LockerFragment : Fragment() {
     }
 
     private fun initView(){
-        val jwt = getJwt() // jwt 를 가져오는 함수
+        val userIdx = getUserIdx(requireContext())
 
-        if (jwt == 0){
+        if (userIdx == 0){
             // 로그인이 안된 상태
             binding.lockLoginTv.text = "로그인"
 
-            // 사용자 이름을 게스트로 설정
-            binding.lockUsernameTv.text = "Guest"
+//            // 사용자 이름을 게스트로 설정
+//            binding.lockUsernameTv.text = "Guest"
 
             binding.lockLoginTv.setOnClickListener {
                 startActivity(Intent(activity, LoginActivity::class.java))
@@ -66,8 +66,8 @@ class LockerFragment : Fragment() {
         } else{
             binding.lockLoginTv.text = "로그아웃"
 
-            // 사용자 이름 설정
-            binding.lockUsernameTv.text = getUser(jwt).name
+//            // 사용자 이름 설정
+//            binding.lockUsernameTv.text = getUser(userIdx).name
 
             binding.lockLoginTv.setOnClickListener {
                 // 로그아웃을 시켜주는 함수
@@ -77,26 +77,20 @@ class LockerFragment : Fragment() {
         }
     }
 
-    private fun getUser(jwt: Int): User{
-        val songDB = SongDatabase.getInstance(requireContext())!!
-        val user = songDB.userDao().getUserByJwt(jwt)
+//    private fun getUser(userIdx: Int): User{
+//        val songDB = SongDatabase.getInstance(requireContext())!!
+//        val user = songDB.userDao().getUserByJwt(userIdx)
+//
+//        return user!!
+//    }
 
-        return user!!
-    }
-
-    private fun getJwt(): Int{
-        // fragment 에서 sharedpreference 사용하는 법
-        val spf = activity?.getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
-
-        return spf!!.getInt("jwt", 0)
-    }
 
     private fun logout(){
         val spf = activity?.getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
         val editor = spf!!.edit()
 
         // jwt 없애주기
-        editor.remove("jwt")
+        editor.remove("userIdx")
         editor.apply()
     }
 }

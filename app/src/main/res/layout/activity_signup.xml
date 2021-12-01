@@ -80,6 +80,19 @@
         app:layout_constraintStart_toStartOf="@id/signup_id_et"
         app:layout_constraintEnd_toStartOf="@id/signup_at_tv"/>
 
+    <TextView
+        android:id="@+id/signup_email_error_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="12sp"
+        android:textColor="#F44336"
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="20sp"
+        app:layout_constraintTop_toBottomOf="@id/signup_line_01_view"/>
+
     <View
         android:id="@+id/signup_line_02_view"
         android:layout_width="0dp"
@@ -193,6 +206,18 @@
         android:text="가입완료"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/signup_loading_pb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:indeterminateTint="@color/flo_blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

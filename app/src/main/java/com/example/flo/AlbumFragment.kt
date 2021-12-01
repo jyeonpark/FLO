@@ -76,7 +76,7 @@ class AlbumFragment : Fragment() {
     }
 
     private fun setClickListeners(album: Album){
-        val userId: Int = getJwt()
+        val userId: Int = getUserIdx(requireContext())
 
         binding.albumLikeOnIv.setOnClickListener {
             if(isLiked){
@@ -98,7 +98,7 @@ class AlbumFragment : Fragment() {
 
     private fun isLikedAlbum(albumId: Int): Boolean {
         val songDB = SongDatabase.getInstance(requireContext())!!
-        val userId = getJwt()
+        val userId = getUserIdx(requireContext())
 
         val likeId: Int? = songDB.albumDao().isLikeAlbum(userId, albumId)
 
@@ -109,13 +109,6 @@ class AlbumFragment : Fragment() {
     private fun disLikedAlbum(userId: Int, albumId: Int) {
         val songDB = SongDatabase.getInstance(requireContext())!!
         songDB.albumDao().disLikeAlbum(userId, albumId)
-    }
-
-    private fun getJwt(): Int{
-        // fragment 에서 sharedpreference 사용하는 법
-        val spf = activity?.getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
-
-        return spf!!.getInt("jwt", 0)
     }
 
     private fun getSongs(albumIdx: Int): ArrayList<Song>{

@@ -37,11 +37,6 @@ class SongActivity : AppCompatActivity() {
     private var snackbar : Snackbar? = null
 
 
-//    // Gson
-//    private var gson: Gson = Gson()
-//
-//    private var songPosition : Int = 0
-//    private var songList = ArrayList<Song>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,24 +44,6 @@ class SongActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         Log.d("oncreate", "song")
-
-//        binding.songMiniplayerIv.setOnClickListener { // 일시정지 -> 재생
-//            setPlayerstatus(true)
-//
-//            if (player.isAlive){
-//                player.isPlaying = true
-//            }
-//            else{
-//                player = Player(song.playTime, song.isPlaying)
-//                player.start()
-//            }
-//            mediaPlayer?.start()
-//        }
-//
-//        binding.songPauseIv.setOnClickListener { // 재생 -> 일시정지
-//            setPlayerstatus(false)
-//            mediaPlayer?.pause()
-//        }
 
         binding.songPlayerSb.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
@@ -110,55 +87,6 @@ class SongActivity : AppCompatActivity() {
             setRandomstatus(false)
         }
     }
-
-//        binding.songMyLikeOff.setOnClickListener { // 좋아요 누르기
-//            setLikestatus(false)
-//        }
-//
-//        binding.songMyLikeOn.setOnClickListener { // 좋아요 끄기
-//            setLikestatus(true)
-//        }
-//
-//        binding.songUnlikeOff.setOnClickListener { // 싫어요 누르기
-//            setUnlikestatus(true)
-//        }
-//
-//        binding.songUnlikeOn.setOnClickListener { // 싫어요 끄기
-//            setUnlikestatus(false)
-//        }
-//
-//    }
-
-
-//    private fun setMiniPlayer(song: Song) {
-//        binding.songEndTimeTv.text = String.format("%02d:%02d", song.playTime/60, song.playTime % 60)
-//        binding.songTitleTv.text = song.title
-//        binding.songSingerTv.text = song.singer
-//        binding.songPlayerSb.progress = (song.second*1000/song.playTime)
-//        binding.songProgressTimeTv.text = String.format("%02d:%02d", song.second/60, song.second%60)
-//
-//
-//        val music = resources.getIdentifier(song.music, "raw", this.packageName)
-//        mediaPlayer = MediaPlayer.create(this, music)
-//        mediaPlayer?.seekTo(song.second * 1000)
-//
-//    }
-
-//    fun setPlayerstatus(isPlaying : Boolean){
-//        if(isPlaying){
-//            binding.songMiniplayerIv.visibility = View.GONE
-//            binding.songPauseIv.visibility = View.VISIBLE
-//            player.isPlaying = true
-//            song.isPlaying = true
-//
-//        }
-//        else{
-//            binding.songMiniplayerIv.visibility = View.VISIBLE
-//            binding.songPauseIv.visibility = View.GONE
-//            player.isPlaying = false
-//            song.isPlaying = false
-//        }
-//    }
 
     fun setRandomstatus(isRandom: Boolean) {
         if (isRandom) {

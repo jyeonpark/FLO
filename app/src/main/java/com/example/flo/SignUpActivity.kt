@@ -3,11 +3,18 @@ package com.example.flo
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.flo.databinding.ActivitySignupBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import java.security.Provider
 
-class SignUpActivity : AppCompatActivity() {
+class SignUpActivity : AppCompatActivity(), SignUpView {
 
     lateinit var binding: ActivitySignupBinding
     private var pwd_visible: Boolean = false
@@ -19,10 +26,8 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.signupGotoSignupBtn.setOnClickListener {
-            if(signUp()) {
-                Toast.makeText(this, "회원가입에 성공했습니다.", Toast.LENGTH_SHORT).show()
-                finish()
-            }
+            binding.signupEmailErrorTv.visibility = View.GONE
+            signUp()
         }
 
         binding.signupInputPasswordIv.setOnClickListener {
@@ -59,33 +64,85 @@ class SignUpActivity : AppCompatActivity() {
         return User(email, pwd, name)
     }
 
-    private fun signUp(): Boolean{
+//    private fun signUp(): Boolean{
+//        if(binding.signupIdEt.text.toString().isEmpty() ||  binding.signupEmailAddrEt.text.toString().isEmpty()){
+//            Toast.makeText(this, "이메일 형식이 잘못되었습니다.",Toast.LENGTH_SHORT).show()
+//            return false
+//        }
+//
+//        if(binding.signupPasswordEt.text.toString().isEmpty() ||  binding.signupPasswordCheckEt.text.toString().isEmpty()){
+//            Toast.makeText(this, "비밀번호 형식이 잘못되었습니다.",Toast.LENGTH_SHORT).show()
+//            return false
+//        }
+//
+//        if(binding.signupPasswordEt.text.toString() !=  binding.signupPasswordCheckEt.text.toString()){
+//            Toast.makeText(this, "비밀번호가 일치하지 않습니다.",Toast.LENGTH_SHORT).show()
+//            return false
+//        }
+//
+//        if(binding.signupUsernameEt.text.toString().isEmpty()){
+//            Toast.makeText(this, "사용자 이름 형식이 잘못되었습니다.",Toast.LENGTH_SHORT).show()
+//            return false
+//        }
+//
+//        val userDB = SongDatabase.getInstance(this)!!
+//        userDB.userDao().insert(getUser())
+//
+//        val users = userDB.userDao().getUsers()
+//        Log.d("Sign Up Act", users.toString())
+//
+//        return true
+//    }
+
+    private fun signUp(){
         if(binding.signupIdEt.text.toString().isEmpty() ||  binding.signupEmailAddrEt.text.toString().isEmpty()){
             Toast.makeText(this, "이메일 형식이 잘못되었습니다.",Toast.LENGTH_SHORT).show()
-            return false
+            return
         }
 
         if(binding.signupPasswordEt.text.toString().isEmpty() ||  binding.signupPasswordCheckEt.text.toString().isEmpty()){
             Toast.makeText(this, "비밀번호 형식이 잘못되었습니다.",Toast.LENGTH_SHORT).show()
-            return false
+            return
         }
 
         if(binding.signupPasswordEt.text.toString() !=  binding.signupPasswordCheckEt.text.toString()){
             Toast.makeText(this, "비밀번호가 일치하지 않습니다.",Toast.LENGTH_SHORT).show()
-            return false
+            return
         }
 
         if(binding.signupUsernameEt.text.toString().isEmpty()){
             Toast.makeText(this, "사용자 이름 형식이 잘못되었습니다.",Toast.LENGTH_SHORT).show()
-            return false
+            return
         }
 
-        val userDB = SongDatabase.getInstance(this)!!
-        userDB.userDao().insert(getUser())
+        val authService = AuthService()
+        authService.setSignUpView(this)
+        authService.signUp(getUser())
 
-        val users = userDB.userDao().getUsers()
-        Log.d("Sign Up Act", users.toString())
+        Log.d("SIGNUPACT/ASYNC", "hello")
+    }
 
-        return true
+
+
+    override fun onSignUpLoading() {
+        binding.signupLoadingPb.visibility = View.VISIBLE
+    }
+
+    override fun onSignUpSuccess() {
+        binding.signupLoadingPb.visibility = View.GONE
+        Toast.makeText(this, "회원가입에 성공하였습니다.",Toast.LENGTH_SHORT).show()
+
+        finish()
+    }
+
+    override fun onSignUpFailure(code: Int, message: String) {
+        binding.signupLoadingPb.visibility = View.GONE
+
+        when(code){
+            2016, 2017 -> {
+                binding.signupEmailErrorTv.visibility = View.VISIBLE
+                binding.signupEmailErrorTv.text = message
+            }
+        }
     }
 }
