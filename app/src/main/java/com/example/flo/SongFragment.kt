@@ -1,6 +1,6 @@
 package com.example.flo
 
-import android.graphics.Color
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,11 +11,11 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.flo.databinding.FragmentSongBinding
 
-class SongFragment(songs: ArrayList<Song>) : Fragment() {
+class SongFragment(songs: ArrayList<Song>, var mContext: MainActivity) : Fragment() {
 
     lateinit var binding : FragmentSongBinding
     private var songs: ArrayList<Song> = songs
-
+    private lateinit var mSongClickListener: OnAlbumSongClickListner
     var selectAll : Boolean = false
 
     override fun onCreateView(
@@ -25,7 +25,7 @@ class SongFragment(songs: ArrayList<Song>) : Fragment() {
     ): View? {
 
         binding = FragmentSongBinding.inflate(inflater, container, false)
-
+        mSongClickListener = mContext
 
         return binding.root
     }
@@ -41,6 +41,12 @@ class SongFragment(songs: ArrayList<Song>) : Fragment() {
 
         val sidesongRVAdapter = SideSongRVAdapter(songs)
         //리스너 객체 생성 및 전달
+
+        sidesongRVAdapter.setMyItemClickListener(object : SideSongRVAdapter.MyItemClickListener {
+            override fun onPlaySong(song: Song) {
+                mSongClickListener.onSongClick(song)
+            }
+        })
 
         binding.songAlbumRecyclerview.adapter = sidesongRVAdapter
 

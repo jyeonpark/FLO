@@ -21,6 +21,22 @@
 
     </style>
 
+<!--    dialog custom-->
+    <style name="MyDialogTheme" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+    </style>
+
+    <style name="NegativeButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <item name="android:textColor">@color/normal_grey</item>
+    </style>
+
+    <style name="PositiveButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <item name="android:textColor">@color/flo_blue</item>
+    </style>
+<!--    dialog custom -->
+
+
     <style name="tab_text" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">15sp</item>
     </style>

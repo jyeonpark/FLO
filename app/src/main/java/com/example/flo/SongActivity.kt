@@ -1,5 +1,6 @@
 package com.example.flo
 
+import CustomDialog
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Toast
@@ -7,12 +8,14 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.flo.databinding.ActivitySongBinding
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Point
 import android.media.MediaPlayer
 import android.util.Log
 import android.view.*
 import android.widget.SeekBar
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.snackbar.Snackbar
@@ -34,8 +37,7 @@ class SongActivity : AppCompatActivity() {
     private var nowPos = 0
     private lateinit var songDB: SongDatabase
 
-    private var snackbar : Snackbar? = null
-
+    private var snackbar: Snackbar? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -233,10 +235,13 @@ class SongActivity : AppCompatActivity() {
 
         setPlayerStatus(song.isPlaying)
 
-        if (song.isLike) {
-            binding.songMyLikeOn.setImageResource(R.drawable.ic_my_like_on)
-        } else {
-            binding.songMyLikeOn.setImageResource(R.drawable.ic_my_like_off)
+        val userId = getUserIdx(this)
+        if (userId != 0) {
+            if (isLikedSong(song.id)) {
+                binding.songMyLikeOn.setImageResource(R.drawable.ic_my_like_on)
+            } else {
+                binding.songMyLikeOn.setImageResource(R.drawable.ic_my_like_off)
+            }
         }
 
         mediaPlayer = MediaPlayer.create(this, music)
@@ -267,7 +272,7 @@ class SongActivity : AppCompatActivity() {
         }
 
         binding.songMyLikeOn.setOnClickListener {
-            setLike(songs[nowPos].isLike)
+            setLike(isLikedSong(songs[nowPos].id))
         }
 
     }
@@ -298,21 +303,47 @@ class SongActivity : AppCompatActivity() {
     }
 
     private fun setLike(isLike: Boolean) {
-        songs[nowPos].isLike = !isLike
-        songDB.songDao().updateIsLikeById(!isLike, songs[nowPos].id)
-
-        if (isLike) {
-            binding.songMyLikeOn.setImageResource(R.drawable.ic_my_like_off)
-            Log.d("좋아요 취소", "클릭")
-//            ToastCustom.createToast(context = this, "좋아요 한 곡이 취소되었습니다.")?.show()
-            createSnackBar(binding.root, "좋아요 한 곡이 취소되었습니다.")
-
+        val userId = getUserIdx(this)
+        if (userId != 0) {
+            if (isLike) {
+                binding.songMyLikeOn.setImageResource(R.drawable.ic_my_like_off)
+                Log.d("좋아요 취소", "클릭")
+                createSnackBar(binding.root, "좋아요 한 곡이 취소되었습니다.")
+                disLikeSong(userId, songs[nowPos].id)
+            } else {
+                binding.songMyLikeOn.setImageResource(R.drawable.ic_my_like_on)
+                Log.d("좋아요", "클릭")
+                createSnackBar(binding.root, "좋아요 한 곡에 담겼습니다.")
+                likeSong(userId, songs[nowPos].id)
+            }
         } else {
-            binding.songMyLikeOn.setImageResource(R.drawable.ic_my_like_on)
-            Log.d("좋아요", "클릭")
-//            ToastCustom.createToast(context = this, "좋아요 한 곡에 담겼습니다.")?.show()
-            createSnackBar(binding.root, "좋아요 한 곡에 담겼습니다.")
+            // 로그인이 안된 상태
+            val dialog = CustomDialog(this)
+            dialog.showDialog(this)
+
         }
+    }
+
+    private fun isLikedSong(songId: Int): Boolean {
+        val songDB = SongDatabase.getInstance(this)!!
+        val userId = getUserIdx(this)
+
+        val likeId: Int? = songDB.songDao().isLikeSong(userId, songId)
+
+        // likeId 가 null 이 아니면 true, 맞다면 false 반환
+        return likeId != null
+    }
+
+    private fun likeSong(userId: Int, songId: Int) {
+        val songDB = SongDatabase.getInstance(this)!!
+        val like = LikedSongs(userId, songId)
+
+        songDB.songDao().likeSong(like)
+    }
+
+    private fun disLikeSong(userId: Int, songId: Int) {
+        val songDB = SongDatabase.getInstance(this)!!
+        songDB.songDao().disLikeAlbum(userId, songId)
     }
 
 

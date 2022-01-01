@@ -55,13 +55,13 @@ class LikeFragment : Fragment() {
 
         songRVAdapter.setMyItemClickListener(object : SongRVAdapter.MyItemClickListener{
             override fun onRemoveSong(songId: Int) {
-                songDB.songDao().updateIsLikeById(false,songId)
+                songDB.songDao().disLikeAlbum(getUserIdx(requireContext()), songId)
             }
         })
 
         binding.likedAlbumRecyclerview.adapter = songRVAdapter
 
-        songRVAdapter.addSongs(songDB.songDao().getLikedSongs(true) as ArrayList)
+        songRVAdapter.addSongs(songDB.songDao().getLikedSongs(getUserIdx(requireContext())) as ArrayList)
 
     }
 
@@ -71,11 +71,11 @@ class LikeFragment : Fragment() {
         val songRVAdapter = SongRVAdapter()
         //리스너 객체 생성 및 전달
 
-        songDB.songDao().updateIsLikeAll(false)
+        songDB.songDao().updateDisLikeAll(getUserIdx(requireContext()))
 
         binding.likedAlbumRecyclerview.adapter = songRVAdapter
 
-        songRVAdapter.addSongs(songDB.songDao().getLikedSongs(true) as ArrayList)
+        songRVAdapter.addSongs(songDB.songDao().getLikedSongs(getUserIdx(requireContext())) as ArrayList)
 
 
 

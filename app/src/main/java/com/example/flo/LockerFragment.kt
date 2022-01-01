@@ -57,8 +57,8 @@ class LockerFragment : Fragment() {
             // 로그인이 안된 상태
             binding.lockLoginTv.text = "로그인"
 
-//            // 사용자 이름을 게스트로 설정
-//            binding.lockUsernameTv.text = "Guest"
+            // 사용자 이름을 게스트로 설정
+            binding.lockUsernameTv.text = "Guest"
 
             binding.lockLoginTv.setOnClickListener {
                 startActivity(Intent(activity, LoginActivity::class.java))
@@ -66,8 +66,8 @@ class LockerFragment : Fragment() {
         } else{
             binding.lockLoginTv.text = "로그아웃"
 
-//            // 사용자 이름 설정
-//            binding.lockUsernameTv.text = getUser(userIdx).name
+            // 사용자 이름 설정
+            binding.lockUsernameTv.text = getUser(userIdx).name
 
             binding.lockLoginTv.setOnClickListener {
                 // 로그아웃을 시켜주는 함수
@@ -77,12 +77,12 @@ class LockerFragment : Fragment() {
         }
     }
 
-//    private fun getUser(userIdx: Int): User{
-//        val songDB = SongDatabase.getInstance(requireContext())!!
-//        val user = songDB.userDao().getUserByJwt(userIdx)
-//
-//        return user!!
-//    }
+    private fun getUser(userIdx: Int): User{
+        val songDB = SongDatabase.getInstance(requireContext())!!
+        val user = songDB.userDao().getUserByIdx(userIdx)
+
+        return user!!
+    }
 
 
     private fun logout(){

@@ -1,6 +1,7 @@
 package com.example.flo
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -11,14 +12,13 @@ class SideSongRVAdapter(private val songList: ArrayList<Song>) : RecyclerView.Ad
 
     // 클릭 인터페이스 정의
     interface MyItemClickListener{
-        fun onItemClick(song: Song)
-        fun onPlayAlbum(song: Song)
+        fun onPlaySong(song: Song)
     }
 
     // 리스너 객체를 전달받는 함수랑 리스너 객체를 저장할 변수
-    private lateinit var mItemClickListener: SideSongRVAdapter.MyItemClickListener
+    private lateinit var mItemClickListener: MyItemClickListener
 
-    fun setMyItemClickListener(itemClickListener: SideSongRVAdapter.MyItemClickListener){
+    fun setMyItemClickListener(itemClickListener: MyItemClickListener){
         mItemClickListener = itemClickListener
     }
 
@@ -29,12 +29,14 @@ class SideSongRVAdapter(private val songList: ArrayList<Song>) : RecyclerView.Ad
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(songList[position], position)
-
-        // 아이템뷰가 클릭됐을 때
-        holder.itemView.setOnClickListener { mItemClickListener.onItemClick(songList[position]) }
+//
+//        // 아이템뷰가 클릭됐을 때
+//        holder.itemView.setOnClickListener { mItemClickListener.onItemClick(songList[position]) }
 
         // 아이템뷰 재생 버튼 클릭시 재생하기
-        holder.binding.songListPlayIv.setOnClickListener { mItemClickListener.onPlayAlbum(songList[position])}
+        holder.binding.songListPlayIv.setOnClickListener {
+            mItemClickListener.onPlaySong(songList[position])
+        }
 
     }
 

@@ -92,7 +92,7 @@ class HomeFragment(var mContext: MainActivity) : Fragment() {
 
     fun startAlbumFragment(album: Album) {
         (context as MainActivity).supportFragmentManager.beginTransaction()
-            .replace(R.id.main_frm, AlbumFragment().apply {
+            .replace(R.id.main_frm, AlbumFragment(mContext).apply {
                 arguments = Bundle().apply {
                     val gson = Gson()
                     val albumJson = gson.toJson(album)

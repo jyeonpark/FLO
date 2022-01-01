@@ -1,7 +1,12 @@
 package com.example.flo
 
+import CustomDialog
+import android.app.AlertDialog
+import android.content.DialogInterface
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +18,7 @@ import com.example.flo.databinding.FragmentAlbumBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.Gson
 
-class AlbumFragment : Fragment() {
+class AlbumFragment(var mContext: MainActivity) : Fragment() {
 
     lateinit var binding: FragmentAlbumBinding
     private var gson: Gson = Gson()
@@ -44,12 +49,12 @@ class AlbumFragment : Fragment() {
 
         binding.albumBackIv.setOnClickListener {
             (context as MainActivity).supportFragmentManager.beginTransaction()
-                .replace(R.id.main_frm, HomeFragment(MainActivity()))
+                .replace(R.id.main_frm, HomeFragment(mContext))
                 .commitAllowingStateLoss()
         }
 
 
-        val albumAdapter = AlbumViewpagerAdapter(this, songs)
+        val albumAdapter = AlbumViewpagerAdapter(this, songs, mContext)
         binding.albumContentVp.adapter = albumAdapter
 
         val child = binding.albumContentVp.getChildAt(0)
@@ -68,10 +73,13 @@ class AlbumFragment : Fragment() {
         binding.albumMusicTitleTv.text = album.title.toString()
         binding.albumMusicSingerTv.text = album.singer.toString()
 
-        if(isLiked){
-            binding.albumLikeOnIv.setImageResource(R.drawable.ic_my_like_on)
-        }else{
-            binding.albumLikeOnIv.setImageResource(R.drawable.ic_my_like_off)
+        val userId = getUserIdx(requireContext())!!
+        if (userId != 0) {
+            if (isLiked) {
+                binding.albumLikeOnIv.setImageResource(R.drawable.ic_my_like_on)
+            } else {
+                binding.albumLikeOnIv.setImageResource(R.drawable.ic_my_like_off)
+            }
         }
     }
 
@@ -79,12 +87,20 @@ class AlbumFragment : Fragment() {
         val userId: Int = getUserIdx(requireContext())
 
         binding.albumLikeOnIv.setOnClickListener {
-            if(isLiked){
-                binding.albumLikeOnIv.setImageResource(R.drawable.ic_my_like_off)
-                disLikedAlbum(userId, album.id)
-            }else{
-                binding.albumLikeOnIv.setImageResource(R.drawable.ic_my_like_on)
-                likeAlbum(userId, album.id)
+            val userId = getUserIdx(requireContext())!!
+            if (userId != 0) {
+                if (isLiked) {
+                    binding.albumLikeOnIv.setImageResource(R.drawable.ic_my_like_off)
+                    disLikedAlbum(userId, album.id)
+                } else {
+                    binding.albumLikeOnIv.setImageResource(R.drawable.ic_my_like_on)
+                    likeAlbum(userId, album.id)
+                }
+            }
+            else{
+                // 로그인이 안된 상태
+                val dialog = CustomDialog(requireContext())
+                dialog.showDialog(requireContext())
             }
         }
     }

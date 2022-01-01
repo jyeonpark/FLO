@@ -20,16 +20,22 @@ interface SongDao {
     @Query("SELECT * FROM SongTable WHERE id = :id")
     fun getSong(id: Int): Song
 
-    @Query("UPDATE SongTable SET isLike= :isLike WHERE id = :id")
-    fun updateIsLikeById(isLike :Boolean,id: Int)
-
-    @Query("SELECT * FROM SongTable WHERE isLike = :isLike")
-    fun getLikedSongs(isLike: Boolean): List<Song>
-
     @Query("SELECT * FROM SongTable WHERE albumIdx = :albumIdx")
     fun getSongsInAlbum(albumIdx: Int): List<Song>
 
-    @Query("UPDATE SongTable SET isLike= :isLike")
-    fun updateIsLikeAll(isLike: Boolean)
+    @Query("DELETE FROM LikeSongTable WHERE userId = :userID")
+    fun updateDisLikeAll(userID: Int)
+
+    @Insert
+    fun likeSong(likedSongs: LikedSongs)
+
+    @Query("SELECT id FROM LikeSongTable WHERE userId = :userID AND songId = :songID")
+    fun isLikeSong(userID: Int, songID: Int): Int?
+
+    @Query("DELETE FROM LikeSongTable WHERE userId = :userID AND songId = :songID")
+    fun disLikeAlbum(userID: Int, songID: Int): Int?
+
+    @Query("SELECT ST.* FROM LikeSongTable as LT LEFT JOIN SongTable as ST ON songId = ST.id WHERE LT.userId = :userId")
+    fun getLikedSongs(userId: Int): List<Song>
 
 }

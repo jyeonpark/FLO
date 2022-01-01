@@ -1,6 +1,7 @@
 package com.example.flo
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -10,14 +11,16 @@ import android.util.Log
 import android.view.View
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.flo.databinding.ActivityMainBinding
 import java.lang.Thread.sleep
 import java.util.*
 import kotlin.collections.ArrayList
 
-class MainActivity : AppCompatActivity(), OnAlbumClickListener {
+class MainActivity : AppCompatActivity(), OnAlbumClickListener, OnAlbumSongClickListner {
 
     lateinit var binding: ActivityMainBinding
+    lateinit var context: Context
 
     private var mediaPlayer: MediaPlayer? = null
     private var timer: MainActivity.Timer? = null
@@ -33,6 +36,8 @@ class MainActivity : AppCompatActivity(), OnAlbumClickListener {
         setContentView(binding.root)
 
         Log.d("oncreate", "main")
+
+        context = applicationContext
 
         initNavigation()
         inputDummyAlbums()
@@ -120,17 +125,44 @@ class MainActivity : AppCompatActivity(), OnAlbumClickListener {
         mediaPlayer = null // 미디어플레이어 해제
         nowPos = 0
 
-        songDB = SongDatabase.getInstance(this)!!
         songs.clear()
+        songDB = SongDatabase.getInstance(this)!!
         songs.addAll(songDB.songDao().getSongsInAlbum(album.id))
-        Log.d("album song : ", songs.toString())
-
+        for (i in songs){
+            i.second = 0;
+            i.isPlaying = true
+        }
 
         startTimer()
         setPlayer(songs[nowPos])
-
-
     }
+
+    // 수록곡 클릭 인터페이스
+    override fun onSongClick(song: Song) {
+
+        Log.d("context", applicationContext.toString())
+
+        if (timer != null) {
+            timer!!.isPlaying = false
+            timer!!.interrupt() // 스레드를 해제함
+        }
+
+        mediaPlayer?.release() // 미디어플레이어가 가지고 있던 리소스를 해방
+        mediaPlayer = null // 미디어플레이어 해제
+        nowPos = 0
+
+        songs.clear()
+        songDB = SongDatabase.getInstance(this)!!
+        songs.add(songDB.songDao().getSong(song.id))
+        for (i in songs){
+            i.second = 0;
+            i.isPlaying = true
+        }
+
+        startTimer()
+        setPlayer(song)
+    }
+
 
 
     // 액티비티가 사용자에게 보여지기 직전에 호출된다.
@@ -208,6 +240,7 @@ class MainActivity : AppCompatActivity(), OnAlbumClickListener {
     }
 
     private fun setPlayer(song: Song) {
+
         val music = resources.getIdentifier(song.music, "raw", this.packageName)
         binding.mainMiniplayerTitleTv.text = song.title
         binding.mainMiniplayerSingerTv.text = song.singer
@@ -220,6 +253,7 @@ class MainActivity : AppCompatActivity(), OnAlbumClickListener {
         mediaPlayer?.seekTo(song.second * 1000)
         if (song.isPlaying)
             mediaPlayer?.start()
+
     }
 
     private fun initClickListener() {
@@ -537,6 +571,7 @@ class MainActivity : AppCompatActivity(), OnAlbumClickListener {
 
 
     }
+
 
 }
 
