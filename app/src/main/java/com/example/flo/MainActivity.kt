@@ -57,16 +57,13 @@ class MainActivity : AppCompatActivity(), OnAlbumClickListener, OnAlbumSongClick
 
         binding.mainPlayerSb.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-//                Log.d("seekbar", "1")
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
-//                Log.d("seekbar", "2")
                 songs[nowPos].second = seekBar!!.progress * songs[nowPos].playTime / 1000
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
-//                Log.d("seekbar", "3")
                 songs[nowPos].second = seekBar!!.progress * songs[nowPos].playTime / 1000
                 mediaPlayer?.seekTo(songs[nowPos].second * 1000)
             }
@@ -153,11 +150,9 @@ class MainActivity : AppCompatActivity(), OnAlbumClickListener, OnAlbumSongClick
 
         songs.clear()
         songDB = SongDatabase.getInstance(this)!!
-        songs.add(songDB.songDao().getSong(song.id))
-        for (i in songs){
-            i.second = 0;
-            i.isPlaying = true
-        }
+        song.second = 0
+        song.isPlaying = true
+        songs.add(song)
 
         startTimer()
         setPlayer(song)
