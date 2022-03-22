@@ -4,7 +4,7 @@
 <br>
 
 #### 전체적인 UI 소개
-https://user-images.githubusercontent.com/65281502/159533028-d145f67c-29c6-4c10-9294-a43653f7138a.mp4
+- https://user-images.githubusercontent.com/65281502/159533028-d145f67c-29c6-4c10-9294-a43653f7138a.mp4
 <br>
 
 #### 로그인 & 회원가입
