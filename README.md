@@ -4,6 +4,23 @@
 - 사용기술 : roomDB, RecyclerView, ViewPager, Retrofit2, ViewModel
 <br>
 
+# 실행 화면
+
+#### Layout
+![image](https://user-images.githubusercontent.com/65281502/224202174-ac43be67-d311-420d-b818-bb6d31e2fb8c.png)
+
+#### Login/Signup
+![image](https://user-images.githubusercontent.com/65281502/224202227-a1c2e467-95b0-438f-b923-37770376451d.png)
+
+#### Store data by user
+![image](https://user-images.githubusercontent.com/65281502/224202265-da040547-a1f7-47d1-86dc-cc39de09e77a.png)
+![image](https://user-images.githubusercontent.com/65281502/224202277-1d69d94d-6cc2-4124-a565-038d01ee8507.png)
+
+#### Play songs
+![image](https://user-images.githubusercontent.com/65281502/224202321-305dac40-f826-4d40-a70f-828b24d985d3.png)
+
+# 실행 영상
+
 #### 전체 UI 소개
 - https://user-images.githubusercontent.com/65281502/159533028-d145f67c-29c6-4c10-9294-a43653f7138a.mp4
 <br>
